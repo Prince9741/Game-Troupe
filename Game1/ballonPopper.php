@@ -71,7 +71,7 @@ function gameValueSet(){
     difficulty = 50;//descrease to increase the density;
     starSpeed = 2;//descrease to increase the speed;
     ballonSpeed = 1;//increase to increase the speed
-    life=2;
+    life=10;
     gameStart=true;
 }
 gameValueSet();

@@ -42,7 +42,7 @@ form{
 }
 .msg {
     color:var(--tColor);
-    margin:5px;
+    margin:12px;
     padding:2px 8px;
     font-size: 2em;
     border:1px solid white;
