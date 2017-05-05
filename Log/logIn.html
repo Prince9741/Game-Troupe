@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Game-Troupe Login</title>
+    <link rel="icon" href="../images/images.png">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <form action="logInControl.php" method="post"> <!-- Input authoriezed user informations -->
-        <label for="username">Username:</label> 
+    <header>
+        <nav class="flex" id="navbar">
+            <div class=""><a href="#"><img src="../images/images.png"></a></div><!--go to highScore page -->
+            <div class=""><a href="#">Game-Troupe</a></div>
+        </nav>
+    </header>
+    <div class="form flex">
+    <form action="logInControl.php" method="post" class="flex" id="inputForm"> <!-- Input authoriezed user informations -->
+            <label for="username">Username:</label> 
             <input id="username" name="username" maxlength="20" placeholder="Enter user name" autofocus required>
-        <label for="pwd">Password:</label>
+            <label for="pwd">Password:</label>
             <input id="pwd" name="pwd" type="password" placeholder="Enter Password" autocomplete="off" required>
-        <input type="reset" value="Oh no">
-        <input type="submit" value="Start">
+            <input type="submit" value="Start">
     </form>
-    <div class="button"><a href="SignUp.html">Sign Up</a></div><!-- go to signup page -->
-    <div class="button"><a href="../highScore/HighScorepage.php">HighSores</a></div><!--go to highScore page -->
+    </div>
+    <footer class="flex" id="footer">
+        <div class="button"><a href="../highScore/HighScorepage.php">HighScores</a></div><!--go to highScore page -->
+        <div class="button"><a href="SignUp.html">Sign Up</a></div><!-- go to signup page -->
+    </footer>
 </body>
 </html>

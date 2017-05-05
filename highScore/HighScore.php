@@ -9,7 +9,7 @@ $result=$Scoring->query("SELECT `scoreType` from game where `gameId`=$gameId");
 $row = $result->fetch_assoc();
 $order=$row["scoreType"]?"ASC":"DESC";//tell scorring type
 
-$result=$Scoring->query("SELECT `userName`,`score`,`date`,`gameName`, `scoreType`,CASE
+$result=$Scoring->query("SELECT `userName`,`score`,`date`, `scoreType`,CASE
 WHEN P.`genderId`=0 THEN 'Male'
 WHEN P.`genderId`=1 THEN 'Female'
 WHEN P.`genderId`=2 THEN 'Others'
@@ -22,14 +22,12 @@ for($i=1;$row = $result->fetch_assoc();$i++){
 echo"<tr ondblclick='specificEntry(this)' class='".$row["gender"]."'>
 <td>".$row["userName"]."</td>
 <td>".$row["score"]."</td>
-<td>".$row["gameName"]."</td>
 <td>".$row["scoreType"]."</td>
 <td>".date("d-M-y", strtotime($row["date"])).strftime('%I:%M %p',strtotime($row["date"]))."</td>
 </tr>
 </br>";}
 else
 echo"<tr>
-    <td>No Record</td>
     <td>No Record</td>
     <td>No Record</td>
     <td>No Record</td>
