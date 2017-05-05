@@ -48,7 +48,7 @@
         ?>
     </div>
     <footer class="flex" id="footer">
-        <div><a href="../highScore/highScorePage.php" class="button">High Scores</a></div><!--go to highScore page -->
+        <div><a href="../highScore/highScorePage.php" class="button">Scores</a></div><!--go to highScore page -->
         <div><a href="logIn.php" class="button">Play</a></div><!-- go to login up page -->
     </footer>
 </body>

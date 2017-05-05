@@ -73,3 +73,10 @@ header{
     color: black;
     border:2px solid var(--bColor);
 }
+
+.name{
+    padding:5px 10px;
+    margin: 10px;
+    font-size:20px;
+    color:var(--tColor);
+}

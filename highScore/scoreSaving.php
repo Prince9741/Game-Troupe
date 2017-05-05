@@ -4,22 +4,42 @@ session_start();
 $log=isset($_SESSION['loggedin']);//check user loged in or not
 if(!$log)
     header("location:../log/logIn.php ");
-function runQuary($conn,$sql){//to ran our query
-    try{
-        $result= $conn->query($sql);
+
+// $score=$_GET['score'];//input game and user information@@@@@@@
+// $userId=$_SESSION['userId'];//@@@@@@@@
+// $gameId=$_GET['gameId'];//@@@@@@
+$score=654;//input game and user information@@@@@@@
+$userId=337;//@@@@@@@@
+$gameId=1;//@@@@@@
+
+$result=$Scoring->query("SELECT `ScoreType` from Game where `GameId`=$gameId");
+if($result->num_rows==1){
+    $row = $result->fetch_assoc();
+    $lastScore=$row["ScoreType"]?"MIN(`Score`)":"MAX(`Score`)";//tell scorring type
+    $result=$Scoring->query("SELECT $lastScore as lastScore FROM highscore where `GameId`=$gameId");
+    if($result->num_rows==1)
+        $row = $result->fetch_assoc();
+}
+if($lastScore=="MIN(`Score`)"){
+    if($row['lastScore']<$score){
+    // runQuary($Scoring,"DELETE FROM `highScore` WHERE `ScoreId` = 5");
+    // $sql="INSERT INTO `highScore` (`Score`, `UserId`, `GameId`) VALUES ('$score', '$userId', '$gameId')";
+    // runQuary($Scoring,$sql);
+    echo "Maxium: Last ".$row['lastScore']." New".$score;
+    $result=$Scoring->query("SELECT * FROM highscore where `GameId`=$gameId");
+    if($result->num_rows==1)
+        $row = $result->fetch_assoc();
     }
-    catch(mysqli_sql_exception){
-        echo $conn -> error." ".mysqli_errno($conn) ;//this code execute if any other error occur
+}
+else if($lastScore=="MAX(`Score`)"){
+    if($row['lastScore']>$score){
+        // runQuary($Scoring,"DELETE FROM `highScore` WHERE `ScoreId` = 5");
+        // $sql="INSERT INTO `highScore` (`Score`, `UserId`, `GameId`) VALUES ('$score', '$userId', '$gameId')";
+        // runQuary($Scoring,$sql);
+        echo "Minimum: ".$row['lastScore']." New".$score;
     }
 }
 
-//if(isset($_POST['userName']) && isset($_POST['gen']) && isset($_POST['pwd']) &&isset($_POST['cPwd']))
-//{
-    $score=13454;//input game and user information@@@@@@@
-    $userId=8;//@@@@@@@@
-    $gameId=1;//@@@@@@
-//}
-
-$sql="INSERT INTO `highscore` (`Score`, `UserId`, `GameId`) VALUES ('$score', '$userId', '$gameId')";
-runQuary($Scoring,$sql);
+else
+    echo "no need";
 ?>

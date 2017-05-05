@@ -8,7 +8,7 @@ else
 $result=$Scoring->query("SELECT `ScoreType` from Game where `GameId`=$gameId");
 if($result->num_rows==1)
     $row = $result->fetch_assoc();
-$order=$row["ScoreType"]?"ASC":"DESC";//tell scorring type
+$order=$row["ScoreType"]?"DESC":"ASC";//tell scorring type
 
 $result=$Scoring->query("SELECT P.`UserName`, H.`Score`,H.`Date`,G.`ScoreType`,CASE
 WHEN P.`GenderId`=0 THEN 'male'

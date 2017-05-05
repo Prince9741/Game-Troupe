@@ -13,7 +13,7 @@ if(!$log)
         <title>Document</title>
         <link rel="icon" href="images/logo.png">
         <link rel="stylesheet" href="head-foot.css">
-        <script src="../allFileJs.js"></script>
+        <script src="allFileJs.js"></script>
         <style>
       .container {
             top: 16vh;
@@ -37,12 +37,7 @@ if(!$log)
         #control div img[class="active"]{
             box-shadow:0px 0px 15px 5px skyblue;
         }
-        .name{
-            padding:5px 10px;
-            margin: 10px;
-            font-size:20px;
-            color:var(--tColor);
-        }
+        
         @media (max-width:700px){
             #control{
             grid-template-columns:repeat(2,auto);
@@ -75,7 +70,7 @@ if(!$log)
         </div>
     </div>
     <footer class="flex" id="footer">
-    <div><a href="highScore/highScorePage.php" class="button">High Scores</a></div><!--go to highScore page -->    
+    <div><a href="highScore/highScorePage.php" class="button">Scores</a></div><!--go to highScore page -->    
     <div class="name"><?php echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
     <div><a href="log/logOut.php" class="button">Exit</a></div><!-- go to login up page -->
     </footer>

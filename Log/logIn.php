@@ -41,7 +41,7 @@ if($log)
         ?>
     </div>
     <footer class="flex" id="footer">
-        <div><a href="../highScore/highScorePage.php" class="button">High Scores</a></div>
+        <div><a href="../highScore/highScorePage.php" class="button">Scores</a></div>
         <!--go to highScore page -->
         <div><a href="signUp.php" class="button">Sign Up</a></div><!-- go to signup page -->
     </footer>

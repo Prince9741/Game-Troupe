@@ -17,3 +17,9 @@ function controlDoc(fileUrlSupport,fileUrl,id){
         loadDoc(fileUrl,id);
   };
 }
+
+function sendData(fileUrl){
+  const xhttp= new XMLHttpRequest();
+  xhttp.open("GET",fileUrl,true);
+  xhttp.send();
+}
