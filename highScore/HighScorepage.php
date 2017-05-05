@@ -5,13 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
+        <link rel="icon" href="../images/logo.png">
         <link rel="stylesheet" href="../head-foot.css">
         <script src="../allFileJs.js"></script>
 </head>
 <body>
 <header>
         <nav class="flex" id="navbar">
-            <div class=""><a href="#"><img src="../images/images.png"></a></div><!--go to highScore page -->
+            <div class=""><a href="#"><img src="../images/logo.png"></a></div><!--go to highScore page -->
             <div id="title"><a href="#">Game-Troupe</a></div>
         </nav>
     </header>

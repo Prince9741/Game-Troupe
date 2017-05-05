@@ -2,8 +2,6 @@
             position:fixed;
             top:20vh;
             width: 99vw;
-            flex-flow: row wrap;
-            justify-content: center;
         }
         form{
             border:5px solid white;
