@@ -32,7 +32,7 @@ if(!$log)
         #control div img{
             height: 150px;
             border-radius: 10px;
-            border:3px solid var(--tColor);
+            border:3px solid var(--bColor);
         }
         #control div img[class="active"]{
             box-shadow:0px 0px 15px 5px skyblue;

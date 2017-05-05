@@ -3,5 +3,7 @@ $_SESSION['loggedin']=false;
 session_start();
 session_unset();
 session_destroy();
-header("location:logIn.php?msg=Logout Successfull");
+session_start();
+$_SESSION['msg']="Logout Successfull";
+header("location:logIn.php");
 ?>

@@ -9,25 +9,25 @@
     <link rel="stylesheet" href="../head-foot.css">
     <script src="../allFileJs.js"></script>
     <style>
-        * {
-            margin: 0px;
-            padding: 0px;
-        }
-        #container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #canvas1 {
-            border: 2px solid white;
-            background: url("background1.png");
-            cursor:grab;
-        }
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    #container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #canvas1 {
+        border: 2px solid white;
+        background: url("background1.png");
+        cursor:grab;
+    }
     </style>
 </head>
-<body>
+<body onload="animate()">
     <header>
         <nav class="flex" id="navbar">
             <div class=""><a href="#"><img src="../images/logo.png"></a></div>
@@ -39,10 +39,10 @@
         <canvas id="canvas1"></canvas>
     </div>
     <footer class="flex" id="footer">
-        <div><a href="../log/logout.php" class="button">Exit</a></div><!-- go to signup page -->
+        <div><a href="../index.php" class="button">Back</a></div>
         <!--go to highScore page -->
         <div class="name"><?php session_start(); echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
-        <div><a href="../index.php" class="button">Home</a></div>
+        <div class="button" id="pausePlay" onclick="pausePlay()">Pause</div><!-- go to signup page -->
     </footer>
 </body>
 </html>
@@ -52,7 +52,7 @@ let difficulty; //descrease to increase the density;
 let starSpeed;//descrease to increase the speed;
 let ballonSpeed;//increase to increase the speed
 let life,gameStart;
-    //canvas setup
+//canvas setup
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = 1200;
@@ -71,7 +71,7 @@ function gameValueSet(){
     difficulty = 50;//descrease to increase the density;
     starSpeed = 2;//descrease to increase the speed;
     ballonSpeed = 1;//increase to increase the speed
-    life=10;
+    life=2;
     gameStart=true;
 }
 gameValueSet();
@@ -80,7 +80,7 @@ canvas.addEventListener('mousedown', function (event) {
     mouse.x = event.x - canvasPosition.left;
     mouse.y = event.y - canvasPosition.top;
     canvas.style.cursor='grabbing';
-    if(!gameStart){
+    if(!gameStart && !life){//if life is zero and game is paused
         gameValueSet();
         animate();
     }
@@ -146,19 +146,7 @@ class Bubble {
         this.distance = Math.sqrt(dx * dx + dy * dy);
     }
     draw() {
-        switch(this.imgValue){
-            case 1:
-                ballonImage.src = '1.png';
-                break;
-            case 2:
-                ballonImage.src = '2.png';
-                break;
-            case 3:
-                ballonImage.src = '3.png';
-                break;
-            case 0:
-                ballonImage.src = '4.png';
-        }
+        ballonImage.src=this.imgValue+".png";
         ctx.drawImage(ballonImage, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
     }
 }
@@ -166,8 +154,10 @@ const ballonPop1 = document.createElement('audio');
 ballonPop1.src = 'pop.mpeg';
 function handleBallons() {
     if (!(gameFrame % difficulty)) {//difficulty
-        ballonsArray.push(new Bubble(ballonColor++));
-        ballonColor = ballonColor % 4;
+        ballonsArray.push(new Bubble(ballonColor));
+        ballonColor %=4;
+        ballonColor++;
+        console.log(ballonColor);
     }
     for (let i = 0; i < ballonsArray.length; i++) {
         if (ballonsArray[i].y < 0 - ballonsArray[i].radius * 2) {
@@ -197,11 +187,25 @@ background.src = 'background1.png';
 function handleBackground() {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 }
+//pausePlay
+function pausePlay(){
+    content=document.getElementById("pausePlay");
+    if(gameStart){
+        gameStart=false;
+        content.innerHTML="Play";
+    }
+    else{
+        content.innerHTML="Pause";
+        gameStart=true;
+        animate();
+    }
+}
+
 //game-over
 function gameOver(){//gameOver//////////////
     for (let i = 0; i < ballonsArray.length; i++)
         ballonsArray.splice(i, 1);
-    ctx.fillText("Game Over:"+score,450,250);
+    ctx.fillText("Game Over",460,250);
     ctx.fillText("Click to Play Again",390,300);
     var url="../highScore/scoreSaving.php?score="+score+"&gameId="+1;
     sendData(url)
@@ -218,12 +222,9 @@ function animate() {
     ctx.fillText('score: ' + score, 10, 490);
     ctx.fillText('Life: ' + life, 1020, 490);
     gameFrame++;
-    if(life)
-    requestAnimationFrame(animate);
-    else
-    gameOver();
+    if(gameStart)
+    life?requestAnimationFrame(animate):gameOver();
 }
-animate();
 window.addEventListener('resize', function () {
     canvasPosition = canvas.getBoundingClientRect();
 })
