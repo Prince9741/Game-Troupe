@@ -1,8 +1,6 @@
 :root{
-    --bColor:2px solid rgb(172 99 165 / 57%);
+    --bColor:skyblue;
     --tColor:white;
-    --mColor: #55bdc2;
-    --backgroundTheme:rgba(237, 240, 69, 0.6);
 }
 *{
     margin:0px;
@@ -14,7 +12,7 @@ body{
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
-    background-color: rgb(57, 126, 167);
+    background-color: var(--bColor);
     font-size: 10px;
     font-family: cursive;
 }
@@ -73,5 +71,5 @@ header{
     font-size:20px;
     background: var(--tColor);
     color: black;
-    border:2px solid rgb(57, 126, 167);
+    border:2px solid var(--bColor);
 }

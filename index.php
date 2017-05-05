@@ -69,8 +69,9 @@ if(!$log)
         </div>
     </div>
     <footer class="flex" id="footer">
-    <div><a href="highScore/highScorePage.php" class="button">High Scores</a></div><!--go to highScore page -->
-        <div><a href="log/logOut.php" class="button">Exit</a></div><!-- go to login up page -->
+    <div><a href="highScore/highScorePage.php" class="button">High Scores</a></div><!--go to highScore page -->    
+    <div><a href="log/logOut.php" class="button">Exit</a></div><!-- go to login up page -->
+    <div><a href="log/logOut.php" class="button">Exit</a></div><!-- go to login up page -->
     </footer>
 </body>
 </html>

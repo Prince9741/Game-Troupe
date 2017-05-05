@@ -2,7 +2,7 @@ CREATE TABLE `Game`
 (
  `GameId` int NOT NULL AUTO_INCREMENT ,
  `GameName` varchar(30) NOT NULL ,
- `ScoreType` binary NOT NULL,
+ `ScoreType` int(1) NOT NULL,
 
 PRIMARY KEY (`GameId`),
 UNIQUE KEY `GameInformation` (`GameName`)
