@@ -46,17 +46,19 @@
         .data td{
             text-align: center;
             border-radius: 40%;
-            border-bottom: 2px solid var(--tColor);
+            border-bottom: 3px solid var(--tColor);
             padding: 5px 10px;
             font-size: 1.8em;
         }
         .others td{
-            border-bottom: 2px solid green;
+            color:yellow;
+        }
+        .male td{
+            color:skyBlue;
         }
         .female td{
-            border-bottom: 2px solid red;
+            color:pink;
         }
-        
         @media (max-width:700px){
             #control{
             grid-column-gap: 10px;
@@ -104,7 +106,7 @@
             <div class="data flex">
                 <table>
                     <thead>
-                        <tr>
+                        <tr class="heading">
                             <td>Name</td>
                             <td>Score</td>
                             <td>Date</td>
