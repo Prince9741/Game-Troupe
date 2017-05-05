@@ -13,7 +13,6 @@
             margin: 0px;
             padding: 0px;
         }
-
         #container {
             width: 100vw;
             height: 100vh;
@@ -28,7 +27,6 @@
         }
     </style>
 </head>
-
 <body>
     <header>
         <nav class="flex" id="navbar">
@@ -47,7 +45,6 @@
         <div><a href="../index.php" class="button">Home</a></div>
     </footer>
 </body>
-
 </html>
 <script>
 let gameFrame,score;
@@ -55,16 +52,12 @@ let difficulty; //descrease to increase the density;
 let starSpeed;//descrease to increase the speed;
 let ballonSpeed;//increase to increase the speed
 let life,gameStart;
-</script>
-
-<script>
     //canvas setup
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = 1200;
 canvas.height = 500;
 ctx.font = '50px Georgia';
-
 //Mouse Interactivtivity
 let canvasPosition = canvas.getBoundingClientRect();
 const mouse = {
@@ -97,10 +90,8 @@ canvas.addEventListener('mouseup', function (event) {
     canvas.style.cursor='grab';
 });
 //player
-
 const playerLeft = new Image();
 playerLeft.src = 'star.png';
-
 class Player {
     constructor() {
         this.x = canvas.width;
@@ -171,16 +162,13 @@ class Bubble {
         ctx.drawImage(ballonImage, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
     }
 }
-
 const ballonPop1 = document.createElement('audio');
 ballonPop1.src = 'pop.mpeg';
-
 function handleBallons() {
     if (!(gameFrame % difficulty)) {//difficulty
         ballonsArray.push(new Bubble(ballonColor++));
         ballonColor = ballonColor % 4;
     }
-
     for (let i = 0; i < ballonsArray.length; i++) {
         if (ballonsArray[i].y < 0 - ballonsArray[i].radius * 2) {
             ballonsArray.splice(i, 1);
@@ -209,7 +197,6 @@ background.src = 'background1.png';
 function handleBackground() {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 }
-
 //game-over
 function gameOver(){//gameOver//////////////
     for (let i = 0; i < ballonsArray.length; i++)
@@ -240,4 +227,4 @@ animate();
 window.addEventListener('resize', function () {
     canvasPosition = canvas.getBoundingClientRect();
 })
-    </script>
+</script>

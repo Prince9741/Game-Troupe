@@ -31,11 +31,11 @@
             border:3px solid var(--tColor);
         }
         #control div img:hover{
-            outline:4px solid var(--bColor);
+            outline:3px solid var(--bColor);
         }
         #control div img[class="active"]{
             box-shadow:0px 0px 15px 5px skyblue;
-            transform:scale(1.05);
+            transform:scale(1.1);
         }
         .data{
             box-shadow:0px 0px 50px 15px black;

@@ -16,7 +16,7 @@ WHEN P.`GenderId`=1 THEN 'female'
 WHEN P.`GenderId`=2 THEN 'others'
 END as Gender FROM `HighScore` H LEFT JOIN `Players` P ON H.`userId`=P.`userId` 
 LEFT JOIN `Game` G ON H.`GameId`=G.`GameId` 
-WHERE H.`GameId`=$gameId ORDER BY H.`Score` $order LIMIT 7");
+WHERE H.`GameId`=$gameId ORDER BY H.`Score` $order");
 if ($result && $result->num_rows > 0)
 for($i=1;$row = $result->fetch_assoc();$i++){
 //tell the user gender
