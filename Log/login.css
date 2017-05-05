@@ -28,7 +28,7 @@
         }
         #inputForm input[type='submit']{
             background-color:black;
-            color:white;
+            color:var(--tColor);
             border:3px solid white;
             padding: 5px 10px;
             width: inherit;
