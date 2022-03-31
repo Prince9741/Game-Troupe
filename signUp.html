@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="singInControl.php" method="post">
+        <label for="username">Username:</label>
+            <input id="username" name="username" placeholder="Enter user name" autofocus>
+            <label for="male">Male:</label>
+                <input type="radio" name="gen" value="0" id="male">
+            <label for="female">Female:</label>
+                <input type="radio" name="gen" value="1" id="female">
+            <label for="others">Others</label>
+                <input type="radio" name="gen" value="2" id="others">
+            <label for="pwd">Password:</label>
+            <input id="pwd" name="pwd" type="password" placeholder="Enter Password" autocomplete="off">
+        <label for="cPwd">Confirm-Password:</label>
+            <input id="cPwd" name="cPwd" type="password" placeholder="Confirm Password" autocomplete="off">
+        <input type="reset" value="Oh no">
+        <input type="submit" value="Start">
+    </form>
+    <div class="button"><a href="logIn.html">Login</a></div>
+    <div class="button"><a href="HighSores.html">HighSores</a></div>
+</body>
+</html>
