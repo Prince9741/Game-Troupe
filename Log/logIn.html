@@ -7,15 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="logInControl.php" method="post">
-        <label for="username">Username:</label>
-            <input id="username" name="username" placeholder="Enter user name" autofocus>
+    <form action="logInControl.php" method="post"> <!-- Input authoriezed user informations -->
+        <label for="username">Username:</label> 
+            <input id="username" name="username" maxlength="20" placeholder="Enter user name" autofocus required>
         <label for="pwd">Password:</label>
-            <input id="pwd" name="pwd" type="password" placeholder="Enter Password" autocomplete="off">
+            <input id="pwd" name="pwd" type="password" placeholder="Enter Password" autocomplete="off" required>
         <input type="reset" value="Oh no">
         <input type="submit" value="Start">
     </form>
-    <div class="button"><a href="SignUp.html">Sign Up</a></div>
-    <div class="button"><a href="HighSores.html">HighSores</a></div>
+    <div class="button"><a href="SignUp.html">Sign Up</a></div><!-- go to signup page -->
+    <div class="button"><a href="../highScore/#">HighSores</a></div><!--go to highScore page -->
 </body>
 </html>

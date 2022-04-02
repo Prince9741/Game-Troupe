@@ -7,19 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="signInControl.php" method="post">
+    <form action="signUpControl.php" method="post"> <!-- input user information -->
         <label for="username">Username:</label>
-            <input id="username" name="username" placeholder="Enter user name" autofocus>
+            <input id="username" name="username" placeholder="Enter user name"  maxlength="20" autocomplete="off" autofocus required>
             <label for="male">Male:</label>
-                <input type="radio" name="gen" value="0" id="male">
+                <input type="radio" name="gen" value="0" id="male" checked>
             <label for="female">Female:</label>
                 <input type="radio" name="gen" value="1" id="female">
             <label for="others">Others</label>
                 <input type="radio" name="gen" value="2" id="others">
             <label for="pwd">Password:</label>
-            <input id="pwd" name="pwd" type="password" placeholder="Enter Password" autocomplete="off">
+            <input id="pwd" name="pwd" type="password" placeholder="Enter Password"  maxlength="20" autocomplete="off" required>
         <label for="cPwd">Confirm-Password:</label>
-            <input id="cPwd" name="cPwd" type="password" placeholder="Confirm Password" autocomplete="off">
+            <input id="cPwd" name="cPwd" type="password" placeholder="Confirm Password"  maxlength="20" autocomplete="off" required>
         <input type="reset" value="Oh no">
         <input type="submit" value="Start">
     </form>

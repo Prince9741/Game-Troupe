@@ -1,7 +1,7 @@
 <?php
 session_start();
-if($_SESSION['loggedin']==true){
-switch($_SESSION['Gender']){
+if(isset($_SESSION['loggedin'])){
+switch($_SESSION['gender']){
     case 0:
         echo "<div style='color:blue'>Welcome ".$_SESSION['username']."</div>"; 
         break;  
@@ -14,7 +14,6 @@ switch($_SESSION['Gender']){
 echo '<div class="button"><a href="log/logOut.php">Log Out</a></div>';
 }
 else
-    echo "nhi hua";
-    //header("location:logIn.html");
+    header("location:log/logIn.html");//login page if not login
 
 ?>
