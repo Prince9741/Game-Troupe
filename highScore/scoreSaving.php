@@ -15,9 +15,9 @@ if(!$log)
 
 //if(isset($_POST['username']) && isset($_POST['gen']) && isset($_POST['pwd']) &&isset($_POST['cPwd']))
 //{
-    $score=13454;//input game and user information
-    $userId=8;
-    $gameId=1;
+    $score=13454;//input game and user information@@@@@@@
+    $userId=8;//@@@@@@@@
+    $gameId=1;//@@@@@@
 //}
 
 $sql="INSERT INTO `highscore` (`Score`, `UserId`, `GameId`) VALUES ('$score', '$userId', '$gameId')";
