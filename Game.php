@@ -11,7 +11,7 @@ switch($_SESSION['Gender']){
     case 2:
         echo "<div style='color:grey'>Welcome ".$_SESSION['username']."</div>";    
 }
-echo '<div class="button"><a href="logOut.php">Log Out</a></div>';
+echo '<div class="button"><a href="log/logOut.php">Log Out</a></div>';
 }
 else
     echo "nhi hua";

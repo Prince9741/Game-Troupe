@@ -1,5 +1,5 @@
 <?php
-require "db.php";
+require "../db.php";
 if(isset($_POST['username']))
     $username=$_POST['username'];
 if(isset($_POST['pwd'])){
@@ -13,7 +13,7 @@ if(isset($_POST['pwd'])){
                 $_SESSION['loggedin']=true;
                 $_SESSION['username']=$rows['UserName'];
                 $_SESSION['Gender']=$rows['GenderId'];//take gender value from database
-                header("location:Game.php");
+                header("location:../Game.php");
             }
             else
             header("location:logIn.html?msg=Wrong+Password");

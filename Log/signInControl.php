@@ -1,6 +1,6 @@
 <?php 
 
-require "db.php"; 
+require "../db.php";
 $control="add";
 if(isset($_POST['username']) && isset($_POST['gen']) && isset($_POST['pwd']) &&isset($_POST['cPwd']))
 {
@@ -13,13 +13,13 @@ if(isset($_POST['username']) && isset($_POST['gen']) && isset($_POST['pwd']) &&i
 function runQuary($conn,$sql){//to ran our query
     try{
         $result= $conn->query($sql);
-        header("location:singUp.html");
+        header("location:signUp.html");
     }
     catch(mysqli_sql_exception){
         global $username;
         echo $conn -> error;
         if(mysqli_errno($conn)==1062) //for dublicate entry     
-            header("location:singUp.html?msg=$username+Already+exist");
+            header("location:signUp.html?msg=$username+Already+exist");
     }
 }
 
@@ -31,7 +31,7 @@ function add($conn){//insert function
     runQuary($conn,$sql);
     }
     else
-    header("location:index.php?msg=Password+did+not+match");
+    header("location:signUp.html?msg=Password+did+not+match");
 }
 
 switch($control){//which function has to be execute
@@ -47,6 +47,6 @@ switch($control){//which function has to be execute
         //show($prince);
         break;  
     default:
-    header("location:singUp.html");      
+    header("location:signUp.html");      
 }
 ?>
