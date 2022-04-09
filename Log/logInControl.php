@@ -18,11 +18,11 @@ if(isset($_POST['username']) && isset($_POST['pwd'])){
                 header("location:../index.php");//send to the main page
             }
             else
-            header("location:logIn.html?msg=Wrong+Password");//this code run when password is wrong
+            header("location:logIn.php?msg=Wrong+Password");//this code run when password is wrong
     }
     else
-        header("location:logIn.html?msg=$plz,+sign+up+first");//this code run when user is invalid
+        header("location:logIn.php?msg=Sign+up+first");//this code run when user is invalid
 }
 else
-    header("location:logIn.html");
+    header("location:logIn.php");
 ?>

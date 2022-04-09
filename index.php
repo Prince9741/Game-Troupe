@@ -1,3 +1,9 @@
+<?php
+session_start();
+$log=isset($_SESSION['loggedin']);
+if(!$log)
+    header("location:log/logIn.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,20 +15,40 @@
         <link rel="stylesheet" href="head-foot.css">
         <script src="../allFileJs.js"></script>
         <style>
-            .container{
-            position:fixed;
-            top:20vh;
-            width: 99vw;
+      .container {
+            top: 16vh;
+            position: fixed;
+            width: 100%;
+            flex-direction: column;
         }
-        #score{
+        
+        #control{
             display: grid;
-            grid-template-columns: auto auto auto;
-            grid-gap: 15vw;
+            text-align: center;
+            grid-gap: 40px;
+            grid-template-columns:repeat(3,auto);
+
         }
-        #score img{
-            border: 2px solid green;
-            height:100px;
+        #control div img{
+            height: 150px;
+            border-radius: 10px;
+            border:3px solid var(--tColor);
         }
+        #control div img[class="active"]{
+            box-shadow:0px 0px 15px 5px skyblue;
+        }
+        @media (max-width:700px){
+            #control{
+            grid-template-columns:repeat(2,auto);
+            grid-gap: 5px;
+            }
+           
+        }
+        @media (max-width:500px){
+            #control{
+            grid-row-gap:10px;
+            }
+        } 
         </style>
 </head>
 <body>
@@ -32,41 +58,20 @@
             <div id="title"><a href="#">Game-Troupe</a></div>
         </nav>
     </header>
-<div class="container flex">
-<div id="score">
-    <div id="game1" class="game"><img src="images/images.png" alt="gamePHOT"></div>
-    <div id="game2" class="game"><img src="images/images.png" alt="gamePHOT"></div>
-    <div id="game3" class="game"><img src="images/images.png" alt="gamePHOT"></div>
-    <div id="game4" class="game"><img src="images/images.png" alt="gamePHOT"></div>
-    <div id="game5" class="game"><img src="images/images.png" alt="gamePHOT"></div>
-    <div id="game6" class="game"><img src="images/images.png" alt="gamePHOT"></div>
-</div>
-</div>
+    <div class="container flex">
+        <div id="control">
+            <div id="game1" onclick=""><img src="images/Game1.png" alt="game"></div>
+            <div id="game2" onclick=""><img src="images/Game2.png" alt="game"></div>
+            <div id="game3" onclick=""><img src="images/Game3.png" alt="game"></div>
+            <div id="game4" onclick=""><img src="images/Game4.png" alt="game"></div>
+            <div id="game4" onclick=""><img src="images/logo.png" alt="game"></div>
+            <div id="game5" onclick=""><img src="images/Game5.png" alt="game"></div>
+        </div>
+    </div>
     <footer class="flex" id="footer">
     <div><a href="highScore/HighScorepage.php" class="button">High Scores</a></div><!--go to highScore page -->
-        <div><a href="log/logOut.php" class="button">Logout</a></div><!-- go to login up page -->
+        <div><a href="log/logOut.php" class="button">Exit</a></div><!-- go to login up page -->
     </footer>
 </body>
 </html>
-
-<!--
-<?php/*
-session_start();
-if(isset($_SESSION['loggedin'])){
-switch($_SESSION['gender']){
-    case 0:
-        echo "<div style='color:blue'>Welcome ".$_SESSION['username']."</div>"; 
-        break;  
-    case 1:
-        echo "<div style='color:pink'>Welcome ".$_SESSION['username']."</div>";    
-        break;
-    case 2:
-        echo "<div style='color:grey'>Welcome ".$_SESSION['username']."</div>";    
-}
-echo '<div class="button"><a href="log/logOut.php">Log Out</a></div>';
-}
-else
-    header("location:log/logIn.html");//login page if not login
-*/
 ?>
--->

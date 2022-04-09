@@ -47,7 +47,7 @@
             text-align: center;
             border-radius: 40%;
             border-bottom: 3px solid var(--tColor);
-            padding: 5px 10px;
+            padding: 4px 10px;
             font-size: 1.8em;
         }
         .others td{
@@ -100,9 +100,9 @@
     <div class="container flex">
         <div id="control">
             <div id="game1" onclick="currentGame(0,1)"><img src="../images/Game1.png" alt="game"></div>
-            <div id="game2" onclick="currentGame(1,2)"><img class="active" src="../images/logo.png" alt="game"></div>
-            <div id="game3" onclick="currentGame(2,3)"><img src="../images/Game1.png" alt="game"></div>
-            <div id="game4" onclick="currentGame(3,4)"><img src="../images/logo.png" alt="game"></div>
+            <div id="game2" onclick="currentGame(1,2)"><img class="active" src="../images/Game2.png" alt="game"></div>
+            <div id="game3" onclick="currentGame(2,3)"><img src="../images/Game3.png" alt="game"></div>
+            <div id="game4" onclick="currentGame(3,4)"><img src="../images/Game4.png" alt="game"></div>
             <div class="data flex">
                 <table>
                     <thead>
@@ -117,13 +117,13 @@
                     </tbody>
                 </table>
             </div>
-            <div id="game5" onclick="currentGame(5,5)"><img src="../images/logo.png" alt="game"></div>
+            <div id="game5" onclick="currentGame(5,5)"><img src="../images/Game5.png" alt="game"></div>
         </div>
     </div>
     <footer class="flex" id="footer">
-        <div><a href="../log/signUp.html" class="button">Sign Up</a></div>
+        <div><a href="../log/signUp.php" class="button">Sign Up</a></div>
         <!--go to highScore page -->
-        <div><a href="../log/logIn.html" class="button">Login</a></div><!-- go to login up page -->
+        <div><a href="../log/logIn.php" class="button">Play</a></div><!-- go to login up page -->
     </footer>
 </body>
 
