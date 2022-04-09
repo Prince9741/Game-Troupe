@@ -2,6 +2,8 @@
 require "../db.php";
 session_start();
 $log=isset($_SESSION['loggedin']);//check user loged in or not
+if(!$log)
+    header("location:../log/logIn.php ");
 function runQuary($conn,$sql){//to ran our query
     try{
         $result= $conn->query($sql);
@@ -10,8 +12,6 @@ function runQuary($conn,$sql){//to ran our query
         echo $conn -> error." ".mysqli_errno($conn) ;//this code execute if any other error occur
     }
 }
-if(!$log)
-    header("location:../log/logIn.html");
 
 //if(isset($_POST['username']) && isset($_POST['gen']) && isset($_POST['pwd']) &&isset($_POST['cPwd']))
 //{
