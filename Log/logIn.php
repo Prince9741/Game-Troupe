@@ -1,3 +1,9 @@
+<?php
+session_start();
+$log=isset($_SESSION['loggedin']);
+if($log)
+    header("location:../index.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,15 +27,17 @@
     <div class="form flex">
         <form action="logInControl.php" method="post" class="flex" id="inputForm">
             <!-- Input authoriezed user informations -->
-            <label for="username">Username:</label>
-            <input id="username" name="username" maxlength="20" placeholder="Enter user name" autofocus required>
+            <label for="userName">Username:</label>
+            <input id="userName" name="userName" maxlength="20" placeholder="Enter user name" autofocus required>
             <label for="pwd">Password:</label>
             <input id="pwd" name="pwd" type="password" placeholder="Enter Password" autocomplete="off" required>
             <input type="submit" value="Start">
         </form>
         <?php
-        if(isset($_GET['msg']))
-            echo '<div class="msg ">'.$_GET['msg'].'</div>';
+        if(isset($_SESSION['msg'])){
+            echo '<div class="msg ">'.$_SESSION['msg'].'</div>';
+            unset($_SESSION['msg']);
+        }
         ?>
     </div>
     <footer class="flex" id="footer">

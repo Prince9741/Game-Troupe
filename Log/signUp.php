@@ -18,8 +18,8 @@
     </header>
     <div class="form flex">
         <form action="signUpControl.php" method="post" class="flex" id="inputForm"> <!-- input user information -->
-                <label for="username">Username:</label>
-                <input id="username" name="username" placeholder="Enter user name"  maxlength="20" autocomplete="off" autofocus required>
+                <label for="userName">UserName:</label>
+                <input id="userName" name="userName" placeholder="Enter user name"  maxlength="20" autocomplete="off" autofocus required>
                 
             <div>
                 <label for="male">Male:</label>
@@ -40,8 +40,11 @@
             
         </form>
         <?php
-        if(isset($_GET['msg']))
-            echo '<div class="msg ">'.$_GET['msg'].'</div>';
+        session_start();
+        if(isset($_SESSION['msg'])){
+            echo '<div class="msg ">'.$_SESSION['msg'].'</div>';
+            unset($_SESSION['msg']);
+        }
         ?>
     </div>
     <footer class="flex" id="footer">
