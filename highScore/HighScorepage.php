@@ -133,12 +133,12 @@
     var img=document.querySelector("#control").children;
 
     function currentGame(nextLoc,gameId){//this function change the next data or selection
-    console.log("Data Update Game no."+gameId);
-    img[active].firstChild.classList.remove("active");
-    img[nextLoc].firstChild.classList.add("active");
-    active=nextLoc;
-    url = "highScore.php?gameId=" + gameId;
-    loadDoc(url, "dataContent");
+        url = "highScore.php?gameId=" + gameId;
+        loadDoc(url, "dataContent");
+        console.log("Data Update Game no."+gameId);
+        img[active].firstChild.classList.remove("active");
+        img[nextLoc].firstChild.classList.add("active");
+        active=nextLoc;
     }
 </script>
 </script> 

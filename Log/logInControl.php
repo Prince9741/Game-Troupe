@@ -3,9 +3,7 @@ require "../db.php";
 if(isset($_POST['username']) && isset($_POST['pwd'])){
     $username=$_POST['username'];
     $pwd=$_POST['pwd'];
-
-    $result=$Scoring->query("SELECT * FROM `players` WHERE `userName`='$username'");//find the user data
-
+    $result=$Scoring->query("SELECT * FROM `Players` WHERE `userName`='$username'");//find the user data
     if($result->num_rows==1)
     {
         $rows=$result->fetch_assoc();

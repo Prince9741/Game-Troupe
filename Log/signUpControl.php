@@ -10,30 +10,25 @@ if(isset($_POST['username']) && isset($_POST['gen']) && isset($_POST['pwd']) &&i
 }//get all fetch value
 else
     header("location:signUp.php");
-
 function runQuary($conn,$sql){//to ran our query
-    try{
-        $result= $conn->query($sql);
-            header("location:logIn.php");//login after signup
-    }
-    catch(mysqli_sql_exception){
-        global $username;
-        if(mysqli_errno($conn)==1062) //for dublicate entry error
-            header("location:signUp.php?msg=$username+Already+exist");
-        else
-        echo $conn -> error;//this code execute if any other error occur
-    }
+    global $username;
+    $result= $conn->query($sql);
+    if(mysqli_errno($conn)==1062)
+        header("location:signUp.php?msg=$username+Already+exist");
+    else
+        header("location:logIn.php");//login after signup
+        //echo mysqli_error($conn);
 }
 
 function add($conn){//inserting data function   
     global $username,$gen,$pwd,$cPwd;
     if($pwd==$cPwd)
     {
-    $sql = "INSERT INTO `players` (`UserName`, `GenderId`, `Password`) VALUES ('$username', $gen, '$pwd')";
-    runQuary($conn,$sql);
+        $sql = "INSERT INTO `Players` (`UserName`, `GenderId`, `Password`) VALUES ('$username', '$gen', '$pwd')";
+        runQuary($conn,$sql);
     }
     else
-    header("location:signUp.php?msg=Password+did+not+match");//password did not match
+        header("location:signUp.php?msg=Password+did+not+match");//password did not match
 }
 
 switch($control){//which function has to be execute
@@ -49,6 +44,6 @@ switch($control){//which function has to be execute
         //show($prince);
         break;  
     default:
-    header("location:signUp.php");      
+        header("location:signUp.php");      
 }
 ?>
