@@ -1,8 +1,8 @@
 //canvas setup
 const canvas=document.getElementById('canvas1');
 const ctx=canvas.getContext('2d');
-canvas.width=800;
-canvas.height=500;
+canvas.width=900;
+canvas.height=600;
 
 let score=0;
 let gameFrame=0;
@@ -43,10 +43,10 @@ class Player{
         const dx=this.x-mouse.x;
         const dy=this.y-mouse.y;
         if(mouse.x!=this.x){
-            this.x-=dx/15;//fish speed
+            this.x-=dx/10;//fish speed
         }
         if(mouse.y!=this.y){
-            this.y-=dy/15;//fish speed
+            this.y-=dy/10;//fish speed
         }
     }
     draw(){
@@ -54,7 +54,7 @@ class Player{
             ctx.lineWidth=0.2;
             ctx.beginPath();
             ctx.moveTo(this.x,this.y);
-            ctx.lineTo(mouse.x,mouse.y);
+           // ctx.lineTo(mouse.x,mouse.y);
             ctx.stroke();
         }
         ctx.fillStyle='red';
