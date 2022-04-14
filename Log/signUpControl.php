@@ -2,7 +2,8 @@
 require "../db.php";
 session_start();
 $control="add";
-if(isset($_POST['userName']) && isset($_POST['gen']) && isset($_POST['pwd']) &&isset($_POST['cPwd']))
+$error=false;
+if(isset($_POST['userName']) && isset($_POST['gen']) && isset($_POST['pwd']) && isset($_POST['cPwd']))
 {
     $userName=$_POST['userName'];
     $gen=$_POST['gen'];
@@ -11,36 +12,33 @@ if(isset($_POST['userName']) && isset($_POST['gen']) && isset($_POST['pwd']) &&i
 }//get all fetch value
 else
     header("location:signUp.php");
+
 function runQuary($conn,$sql){//to ran our query
-    try{
-        $result= $conn->query($sql);
-        echo " login.php ";
-        header("location:logIn.php");//login after signup
+    global $userName,$error;
+    $result=$conn->query("SELECT * FROM `Players` WHERE `userName`='$userName'");//find the user data
+    if($result->num_rows==1)
+    {
+        $_SESSION['msg']="Already exist: $userName";
+        $error=true;
     }
-    catch(mysqli_sql_exception $err){
-        echo " erro found ";
-        global $userName;
-        if(mysqli_errno($conn)==1062) //for dublicate entry error
-            $_SESSION['msg']="Already exist: $userName";
-        else{
-            echo $conn -> error;//this code execute if any other error occur
-            echo $err;
-        }
+    else{
+        $result= $conn->query($sql);
+        $_SESSION['msg']="Successful Registered: $userName";
     }
 }
 
 function add($conn){//inserting data function   
-    global $userName,$gen,$pwd,$cPwd;
-    if(!$pwd==$cPwd)//insert if password match
+    global $userName,$gen,$pwd,$cPwd,$error;
+    if($pwd!=$cPwd){//insert if password match
         $_SESSION['msg']="Password did not match";
+        $error=true;
+    }
     else//password did not match
     {
         $sql = "INSERT INTO `Players` (`UserName`, `GenderId`, `Password`) VALUES ('$userName', '$gen', '$pwd')";
         runQuary($conn,$sql);
-        echo "query ran ";
     }
-    echo " signup.php ";
-    header("location:signUp.php");
+    $error?header("location:signUp.php"):header("location:logIn.php");
 }
 
 switch($control){//which function has to be execute
@@ -56,7 +54,8 @@ switch($control){//which function has to be execute
         //show($prince);
         break;  
     default:
-    echo "test 3";
-      //  header("location:signUp.php");      
+        header("location:signUp.php");
 }
+
+
 ?>

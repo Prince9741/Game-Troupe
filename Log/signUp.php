@@ -18,7 +18,7 @@
     </header>
     <div class="form flex">
         <form action="signUpControl.php" method="post" class="flex" id="inputForm"> <!-- input user information -->
-                <label for="userName">UserName:</label>
+                <label for="userName">User Name:</label>
                 <input id="userName" name="userName" placeholder="Enter user name"  maxlength="20" autocomplete="off" autofocus required>
                 
             <div>

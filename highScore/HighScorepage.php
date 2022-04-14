@@ -125,7 +125,7 @@
         </div>
     </div>
     <footer class="flex" id="footer">
-        <div><a href="../log/signUp.php" class="button">Sign Up</a></div>
+        <div><a href="#" ></a></div>
         <!--go to highScore page -->
         <div><a href="../log/logIn.php" class="button">Play</a></div><!-- go to login up page -->
     </footer>
