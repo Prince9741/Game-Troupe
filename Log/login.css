@@ -40,11 +40,15 @@ form{
     color:black;
     border:3px solid var(--bColor);
 }
-.msg {
+.msg{
     color:var(--tColor);
     margin:12px;
     padding:2px 8px;
     font-size: 2em;
     border:1px solid white;
-    box-shadow:inset 0px 0px 15px 5px black;
+    box-shadow:inset 0px 0px 15px 5px red;
+}
+
+.msgSuccess{
+    box-shadow:inset 0px 0px 15px 5px green;
 }

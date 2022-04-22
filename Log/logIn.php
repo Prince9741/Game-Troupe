@@ -35,7 +35,7 @@ if($log)
         </form>
         <?php
         if(isset($_SESSION['msg'])){
-            echo '<div class="msg ">'.$_SESSION['msg'].'</div>';
+            echo $_SESSION['msg'];
             unset($_SESSION['msg']);
         }
         ?>

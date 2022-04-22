@@ -16,10 +16,10 @@ if(isset($_POST['userName']) && isset($_POST['pwd'])){
                 header("location:../index.php");//send to the main page
             }
             else
-            $_SESSION['msg']="Wrong Password";//this code run when password is wrong
+            $_SESSION['msg']='<div class="msg">Wrong Password</div>';//this code run when password is wrong
     }
     else
-        $_SESSION['msg']="Sign up first";//this code run when user is invalid
+        $_SESSION['msg']='<div class="msg">Sign-up first</div>';//this code run when user is invalid
 }
 header("location:logIn.php");
 ?>

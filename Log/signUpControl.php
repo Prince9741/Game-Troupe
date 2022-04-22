@@ -18,19 +18,20 @@ function runQuary($conn,$sql){//to ran our query
     $result=$conn->query("SELECT * FROM `Players` WHERE `userName`='$userName'");//find the user data
     if($result->num_rows==1)
     {
-        $_SESSION['msg']="Already exist: $userName";
+        $_SESSION['msg']='<div class="msg">Already exist: '.$userName.'</div>';
         $error=true;
     }
     else{
         $result= $conn->query($sql);
-        $_SESSION['msg']="Successful Registered: $userName";
+        $_SESSION['msg']='<div class="msg msgSuccess">Successful Registered: '.$userName.'</div>';
     }
 }
 
 function add($conn){//inserting data function   
     global $userName,$gen,$pwd,$cPwd,$error;
     if($pwd!=$cPwd){//insert if password match
-        $_SESSION['msg']="Password did not match";
+        
+        $_SESSION['msg']='<div class="msg">Password did not match</div>';
         $error=true;
     }
     else//password did not match
@@ -38,7 +39,7 @@ function add($conn){//inserting data function
         $sql = "INSERT INTO `Players` (`UserName`, `GenderId`, `Password`) VALUES ('$userName', '$gen', '$pwd')";
         runQuary($conn,$sql);
     }
-    $error?header("location:signUp.php"):header("location:logIn.php");
+    $error?header("location:signUp.php"):header("location:logIn.php");//if error occur go to signup otherwise login
 }
 
 switch($control){//which function has to be execute

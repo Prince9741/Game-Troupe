@@ -97,7 +97,6 @@ class Player {
         this.x = canvas.width;
         this.y = canvas.height / 2;
         this.radius = 30;
-        this.angle=0;
         this.frameX = 0;
         this.frameY = 0;
         this.freame = 0;
@@ -129,8 +128,6 @@ class Player {
         ctx.closePath();
         ctx.save();
         ctx.translate(this.x, this.y);
-        if (gameFrame % 3 == 0) this.angle++;
-        ctx.rotate(this.angle);
         ctx.drawImage(playerLeft, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, 0 - 29, 0 - 29, this.spriteWidth / 4, this.spriteHeight / 4);
         ctx.restore();
     }
@@ -141,7 +138,7 @@ const ballonsArray = [];
 class Bubble {
     constructor(imgValue) {
         this.x = Math.random() * canvas.width;
-        this.radius = Math.random() * 5+10;
+        this.radius = Math.random() * 10+20;
         this.y = canvas.height + this.radius;
         this.speed = Math.random() * 5 + ballonSpeed;
         this.distance;
