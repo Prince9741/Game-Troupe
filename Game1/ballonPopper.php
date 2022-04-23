@@ -69,10 +69,12 @@ function gameValueSet(){
     gameFrame = 0;
     score = 0;
     difficulty = 50;//descrease to increase the density;
-    starSpeed = 2;//descrease to increase the speed;
+    starSpeed = 3;//descrease to increase the speed;
     ballonSpeed = 1;//increase to increase the speed
     life=10;
     gameStart=true;
+    mouse.x= canvas.width / 2;
+    mouse.y= canvas.height / 2;
 }
 gameValueSet();
 canvas.addEventListener('mousedown', function (event) {
@@ -149,7 +151,7 @@ class Bubble {
     }
 }
 const ballonPop1 = document.createElement('audio');
-ballonPop1.src = 'pop.mpeg';
+ballonPop1.src = 'pop.mp3';
 const ballonImage = new Image();
 var ballonColor=1;
 function handleBallons() {
@@ -166,6 +168,7 @@ function handleBallons() {
         }
         else if (ballonsArray[i].distance < ballonsArray[i].radius + player.radius) {
             if (!ballonsArray[i].counted) {
+                ballonPop1.pause();
                 ballonPop1.play();
                 score++;
                 if(!(score%10))

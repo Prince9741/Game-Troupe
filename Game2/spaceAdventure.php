@@ -41,7 +41,7 @@
     <footer class="flex" id="footer">
         <div><a href="../index.php" class="button">Back</a></div>
         <!--go to highScore page -->
-        <div class="name" id="name">Welcome</div><!-- go to login up page -->
+        <div class="name"><?php session_start(); echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
         <div class="button" id="pausePlay" onclick="pausePlay()">Pause</div><!-- go to signup page -->
     </footer>
 </body>
@@ -69,16 +69,18 @@ function gameValueSet(){
     gameFrame = 0;
     score = 0;
     difficulty = 50;//descrease to increase the density;
-    starSpeed = 10;//descrease to increase the speed;
+    starSpeed = 5;//descrease to increase the speed;
     ballonSpeed = 1;//increase to increase the speed
     life=10;
     gameStart=true;
+    mouse.x= canvas.width / 2;
+    mouse.y= canvas.height / 2;
 }
 gameValueSet();
 canvas.addEventListener('mousemove', function (event) {
     mouse.click = true;
-    mouse.x = event.x - canvasPosition.left;
-    mouse.y = event.y - canvasPosition.top;
+    mouse.x = event.x - canvasPosition.left-player.width/2;
+    mouse.y = event.y - canvasPosition.top-player.height/2;
 });
 canvas.addEventListener('click', function (event) {
     if(!gameStart && !life){//if life is zero and game is paused
@@ -92,10 +94,10 @@ const playerLeft = new Image();
 playerLeft.src = 'star.png';
 class Player {
     constructor() {
-        this.x = canvas.width;
-        this.y = canvas.height / 2;
-        this.height = 100;
-        this.width=50;
+        this.x = canvas.width/2;
+        this.y = canvas.height;
+        this.height = 130;
+        this.width=60;
         this.angle=0;
         this.frameX = 0;
         this.frameY = 0;
@@ -112,16 +114,8 @@ class Player {
             this.y -= dy / starSpeed;//star speed
     }
     draw() {
-        // ctx.beginPath();
-        // ctx.fillStyle="red";
-        // ctx.fillRect(this.x,this.y,this.height,this.width);
-        // ctx.fill();
-        // ctx.save();
-        // ctx.translate(this.x, this.y);
-        // if (gameFrame % 3 == 0) this.angle++;
-        // ctx.rotate(this.angle);
+        ctx.save();
         ctx.drawImage(playerLeft,this.x,this.y,this.width,this.height);
-        // ctx.drawImage(playerLeft, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, 0 - 29, 0 - 29, this.spriteWidth / 4, this.spriteHeight / 4);
         ctx.restore();
     }
 }
@@ -131,37 +125,30 @@ const ballonsArray = [];
 class Bubble {
     constructor(imgValue) {
         this.x = Math.random() * canvas.width;
-        this.radius = Math.random() * 10 + 15;
+        this.radius = Math.random() * 10 + 20;
         this.y = 0 - this.radius;
         this.speed = Math.random() * 5 + ballonSpeed;
-        this.distance;
         this.counted = false;
         this.imgValue = imgValue;
-        this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2';
     }
     update() {
         this.y += this.speed;
         const dx = this.x - player.x;
         const dy = this.y - player.y;
-        this.distance = Math.sqrt(dx * dx + dy * dy);
     }
     draw() {
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
-        ctx.fillStyle="yellow";
-        ctx.fill();
-        // ballonImage.src=this.imgValue+".png";
-        // ctx.drawImage(ballonImage, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
+        ballonImage.src=this.imgValue+".png";
+        ctx.drawImage(ballonImage, this.x-this.radius, this.y-this.radius, this.radius * 2, this.radius * 2);
     }
 }
 const ballonPop1 = document.createElement('audio');
-ballonPop1.src = 'pop.mpeg';
+ballonPop1.src = 'blast.mp3';
 const ballonImage = new Image();
 var ballonColor=1;
 function handleBallons() {
     if (!(gameFrame % difficulty)) {//difficulty
         ballonsArray.push(new Bubble(ballonColor));
-        ballonColor %=4;
+        ballonColor %=3;
         ballonColor++;
     }
     for (let i = 0; i < ballonsArray.length; i++) {
@@ -174,7 +161,7 @@ function handleBallons() {
                     ballonSpeed++;
             i--;
         }
-        else if (RectCircleColliding(player,ballonsArray[i])) {
+        else if (RectCircleColliding(player,ballonsArray[i])) {//check distance between circle and rocket
             if (!ballonsArray[i].counted) {
                 ballonPop1.play();
                 ballonsArray[i].counted = true;
