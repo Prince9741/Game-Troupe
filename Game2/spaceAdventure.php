@@ -55,9 +55,10 @@ let life,gameStart;
 //canvas setup
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-canvas.width = 1200;
-canvas.height = 500;
-ctx.font = '50px Georgia';
+canvas.width = screen.width-30;
+canvas.height = screen.height-280;
+ctx.font = '30px Georgia';
+ctx.fillStyle='white';
 //Mouse Interactivtivity
 let canvasPosition = canvas.getBoundingClientRect();
 const mouse = {
@@ -72,20 +73,23 @@ function gameValueSet(){
     starSpeed = 5;//descrease to increase the speed;
     ballonSpeed = 1;//increase to increase the speed
     life=10;
-    gameStart=true;
     mouse.x= canvas.width / 2;
     mouse.y= canvas.height / 2;
 }
 gameValueSet();
+gameStart=false;
 canvas.addEventListener('mousemove', function (event) {
     mouse.click = true;
     mouse.x = event.x - canvasPosition.left-player.width/2;
     mouse.y = event.y - canvasPosition.top-player.height/2;
 });
 canvas.addEventListener('click', function (event) {
-    if(!gameStart && !life){//if life is zero and game is paused
-        gameValueSet();
-        animate();
+    if(!gameStart){
+        if(!life){//if life is zero and game is paused
+            gameValueSet();
+        }
+        gameStart=true;
+        animate(); 
     }
 });
 
@@ -120,6 +124,13 @@ class Player {
     }
 }
 const player = new Player();
+//repeating background
+const background = new Image();
+background.src = 'background1.png';
+
+function handleBackground() {
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+} 
 //ballons
 const ballonsArray = [];
 class Bubble {
@@ -169,7 +180,7 @@ function handleBallons() {
                 ballonsArray[i].counted = true;
                 ballonsArray.splice(i, 1);
                 life--;
-                if(life<6)
+                if(life<3)
                    difficulty+=5;
             }
         }
@@ -194,16 +205,7 @@ function RectCircleColliding(rect,circle){
     var dy=dy-rect.height
     return(dx*dx+dy*dy<=circle.radius*circle.radius);
 }
-//repeating background
-const background = new Image();
-background.src = 'background1.png';
-function handleBackground() {
-    // ctx.beginPath();
-    // ctx.fillStyle="black";
-    // ctx.fillRect(0,0,canvas.width,canvas.height);
-    // ctx.fill();
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-}
+
 //pausePlay
 function pausePlay(){
     content=document.getElementById("pausePlay");
@@ -217,13 +219,13 @@ function pausePlay(){
         animate();
     }
 }
-
+ctx.fillText("Click to Play",canvas.width/2-100,canvas.height/2+35);
 //game-over
 function gameOver(){//gameOver//////////////
     for (let i = 0; i < ballonsArray.length; i++)
         ballonsArray.splice(i, 1);
-    ctx.fillText("Game Over",460,250);
-    ctx.fillText("Click to Play Again",390,300);
+    ctx.fillText("Game Over",canvas.width/2-65,canvas.height/2);
+    ctx.fillText("Click to Play Again",canvas.width/2-110,canvas.height/2+35);
     var url="../highScore/scoreSaving.php?score="+score+"&gameId="+2;
     sendData(url)
     gameStart=false;
@@ -235,9 +237,8 @@ function animate() {
     handleBallons();
     player.update();
     player.draw();
-    ctx.fillStyle='white';
-    ctx.fillText('score: ' + score, 10, 490);
-    ctx.fillText('Life: ' + life, 1020, 490);
+    ctx.fillText('Score: ' + score, 10, canvas.height-10);
+    ctx.fillText('Life: ' + life,  canvas.width-100, canvas.height-10);
     gameFrame++;
     if(gameStart)
     life?requestAnimationFrame(animate):gameOver();

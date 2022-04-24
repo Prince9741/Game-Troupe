@@ -27,7 +27,7 @@
     }
     </style>
 </head>
-<body onload="animate()">
+<body>
     <header>
         <nav class="flex" id="navbar">
             <div class=""><a href="#"><img src="../images/logo.png"></a></div>
@@ -55,9 +55,11 @@ let life,gameStart;
 //canvas setup
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-canvas.width = 1200;
-canvas.height = 500;
-ctx.font = '50px Georgia';
+canvas.width = screen.width-30;
+canvas.height = screen.height-280;
+ctx.font = '30px Georgia';
+ctx.fillStyle='black';
+ctx.fillText("Click to Play",canvas.width/2-100,canvas.height/2+35);
 //Mouse Interactivtivity
 let canvasPosition = canvas.getBoundingClientRect();
 const mouse = {
@@ -71,20 +73,24 @@ function gameValueSet(){
     difficulty = 50;//descrease to increase the density;
     starSpeed = 3;//descrease to increase the speed;
     ballonSpeed = 1;//increase to increase the speed
-    life=10;
-    gameStart=true;
+    life=7;
     mouse.x= canvas.width / 2;
     mouse.y= canvas.height / 2;
 }
 gameValueSet();
+gameStart=false;
 canvas.addEventListener('mousedown', function (event) {
     mouse.click = true;
     mouse.x = event.x - canvasPosition.left;
     mouse.y = event.y - canvasPosition.top;
     canvas.style.cursor='grabbing';
-    if(!gameStart && !life){//if life is zero and game is paused
-        gameValueSet();
-        animate();
+   
+    if(!gameStart){
+        if(!life){//if life is zero and game is paused
+            gameValueSet();
+        }
+        gameStart=true;
+        animate(); 
     }
 });
 canvas.addEventListener('mouseup', function (event) {
@@ -109,8 +115,6 @@ class Player {
     update() {
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
-        //let theta = Math.atan2(dy, dx);
-        //this.angle = theta;
         if (mouse.x != this.x)
             this.x -= dx / starSpeed;//star speed
         if (mouse.y != this.y)
@@ -126,6 +130,15 @@ class Player {
     }
 }
 const player = new Player();
+
+//repeating background
+const background = new Image();
+background.src = 'background1.png';
+
+function handleBackground() {
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+} 
+
 //ballons
 const ballonsArray = [];
 class Bubble {
@@ -164,6 +177,8 @@ function handleBallons() {
         if (ballonsArray[i].y < 0 - ballonsArray[i].radius * 2) {
             ballonsArray.splice(i, 1);
             life--;
+            if(life<3)
+                   difficulty+=5;
             i--;
         }
         else if (ballonsArray[i].distance < ballonsArray[i].radius + player.radius) {
@@ -171,8 +186,12 @@ function handleBallons() {
                 ballonPop1.pause();
                 ballonPop1.play();
                 score++;
-                if(!(score%10))
+                if(!(score%5) && difficulty>40)
                     difficulty--;
+                else if(!(score%20) && difficulty>30)
+                    difficulty--;
+                if(!(score%20))
+                        ballonSpeed++;
                 ballonsArray[i].counted = true;
                 ballonsArray.splice(i, 1);
             }
@@ -183,12 +202,7 @@ function handleBallons() {
         ballonsArray[i].draw();
     }
 }
-//repeating background
-const background = new Image();
-background.src = 'background1.png';
-function handleBackground() {
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-}
+
 //pausePlay
 function pausePlay(){
     content=document.getElementById("pausePlay");
@@ -207,8 +221,8 @@ function pausePlay(){
 function gameOver(){//gameOver//////////////
     for (let i = 0; i < ballonsArray.length; i++)
         ballonsArray.splice(i, 1);
-    ctx.fillText("Game Over",460,250);
-    ctx.fillText("Click to Play Again",390,300);
+    ctx.fillText("Game Over",canvas.width/2-65,canvas.height/2);
+    ctx.fillText("Click to Play Again",canvas.width/2-110,canvas.height/2+35);
     var url="../highScore/scoreSaving.php?score="+score+"&gameId="+1;
     sendData(url)
     gameStart=false;
@@ -220,12 +234,11 @@ function animate() {
     handleBallons();
     player.update();
     player.draw();
-    ctx.fillStyle='black';
-    ctx.fillText('score: ' + score, 10, 490);
-    ctx.fillText('Life: ' + life, 1020, 490);
+    ctx.fillText('Score: ' + score, 10, canvas.height-10);
+    ctx.fillText('Life: ' + life,  canvas.width-100, canvas.height-10);
     gameFrame++;
     if(gameStart)
-    life?requestAnimationFrame(animate):gameOver();
+        life?requestAnimationFrame(animate):gameOver();
 }
 window.addEventListener('resize', function () {
     canvasPosition = canvas.getBoundingClientRect();

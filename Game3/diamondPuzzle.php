@@ -94,6 +94,7 @@
 </html>
 <script>
     var score=0,gameStart=true;
+    var defaultMsg=document.getElementById("winner").innerHTML;
     let i,a = document.getElementById("diamondBox").children;
     for (i = 0; i < a.length; i++) {
         a[i].addEventListener("click", rotate);
@@ -131,7 +132,7 @@
         }
         document.getElementById("score").innerHTML="Move: "+ ++score;
         if (win){
-            document.getElementById("winner").innerHTML = "You Got this";
+            document.getElementById("winner").innerHTML = "Puzzle Solved";
             gameOver();
             score=0;
         }
@@ -143,7 +144,7 @@ function reset(){
     for (i = 0; i < a.length; i++) {
         a[i].style.border = "5px solid white";
         a[i].style.transform="rotate(0deg)";
-        document.getElementById("winner").innerHTML = "Create these white diamonds";
+        document.getElementById("winner").innerHTML = defaultMsg;
         document.getElementById("score").innerHTML="Move: 0";
         gameStart=true;
     }

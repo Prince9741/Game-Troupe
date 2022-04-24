@@ -50,7 +50,7 @@
         border-radius: 40%;
         border-bottom: 3px solid var(--tColor);
         padding: 4px 10px;
-        font-size: 1.8em;
+        font-size: 1.6em;
     }
     .others td{
         color:yellow;

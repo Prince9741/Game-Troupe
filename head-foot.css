@@ -28,7 +28,7 @@ header{
 #navbar{
     position: fixed;
     top:0;
-    height: 11vh;
+    height: 70px;
     width:100%;
     background-color:rgba(0, 0, 0, 0.664);
     border-bottom:2px solid var(--tColor);
@@ -49,7 +49,7 @@ header{
 #footer{
     position: fixed;
     bottom:0px;
-    height: 11vh;
+    height: 70px;
     width:100%;
     background-color:rgba(0, 0, 0, 0.664);
     border-top:2px solid var(--tColor);
