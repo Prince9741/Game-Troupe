@@ -34,15 +34,19 @@
             width:75vw;
             color: var(--tColor);
         }
+        
         .box{
             z-index: 2;
             margin:20px;
         }
+
         #diamondBox{
             display: grid;
             grid-template-columns:repeat(2,auto);
         }
+
         .game3{
+            border-radius:30px;
             box-shadow:inset 0px 0px 100px 100px black;  
         }
         

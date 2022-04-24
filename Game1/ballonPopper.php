@@ -222,6 +222,11 @@ function pausePlay(){
     }
 }
 
+window.onkeypress = function(event) {
+  if (event.which == 32) {
+    pausePlay(); 
+  }
+}
 //game-over
 function gameOver(){//gameOver//////////////
     for (let i = 0; i < ballonsArray.length; i++)

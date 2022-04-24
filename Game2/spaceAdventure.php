@@ -77,7 +77,7 @@ function gameValueSet(){
     difficulty = 50;//descrease to increase the density;
     starSpeed = 5;//descrease to increase the speed;
     asteroidSpeed = 1;//increase to increase the speed
-    life=10;
+    life=7;
     mouse.x= canvas.width / 2;
     mouse.y= canvas.height / 2;
 }
@@ -225,6 +225,11 @@ function pausePlay(){
     }
 }
 
+window.onkeypress = function(event) {
+  if (event.which == 32) {
+    pausePlay(); 
+  }
+}
 //game-over
 function gameOver(){//gameOver//////////////
     for (let i = 0; i < asteroidsArray.length; i++)
