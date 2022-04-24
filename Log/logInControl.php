@@ -19,7 +19,7 @@ if(isset($_POST['userName']) && isset($_POST['pwd'])){
             $_SESSION['msg']='<div class="msg">Wrong Password</div>';//this code run when password is wrong
     }
     else
-        $_SESSION['msg']='<div class="msg">Sign-up first</div>';//this code run when user is invalid
+        $_SESSION['msg']='<a href="signUp.php" class="msg"><div>'.$userName.': Register First</div></a>';//this code run when user is invalid
 }
 header("location:logIn.php");
 ?>

@@ -18,27 +18,47 @@
             border-radius: 10px;  
         }
 
-        .flex {
+        .container {
+            position: absolute;
+            top:15%;
             text-align: center;
-            display: flex;
+            display: flex ;
             align-items: center;
             justify-content: space-evenly;
-        }
-
-        .container {
-            
-            height: 35vw;
+            flex-direction: column;
         }
 
         .winner {
-            font-size: 60px;
-            height: 70px;
-            width: auto;
-            color: red;
+            font-size: 4em;
+            height: auto;
+            width:75vw;
+            color: var(--tColor);
         }
         .box{
             z-index: 2;
             margin:20px;
+        }
+        #diamondBox{
+            display: grid;
+            grid-template-columns:repeat(2,auto);
+        }
+        .game3{
+            box-shadow:inset 0px 0px 100px 100px black;  
+        }
+        
+        #score{
+            font-size: 4em;
+            color: var(--tColor);
+        }
+        @media (max-width:400px){
+        .box {
+            
+            height: 90px;
+            width: 90px; 
+        }
+        .winner {
+            font-size: 3.5em;
+        }
         }
     </style>
 </head>
@@ -51,36 +71,41 @@
             <div id="title"><a href="#">Game-Troupe</a></div>
         </nav>
     </header>
-<div class="flex">
-    <div id="winner" class="winner">Create these white diamonds</div>
-    <div class="flex container" id="yo">
-        <div class="box box0"></div>
-        <div class="box box1"></div>
-        <div class="box box2"></div>
-        <div class="box box3"></div>
+    <div class="flex">
+        <div class="container game3">
+            <div id="winner" class="winner">Create these white diamonds</div>
+            <div id="diamondBox">
+                <div class="box box0"></div>
+                <div class="box box1"></div>
+                <div class="box box2"></div>
+                <div class="box box3"></div>
+            </div>
+            <div id="score" class="">Move: 0</div>
+        </div>
     </div>
-    <div id="score" class="winner">Move: 0</div>
-</div>
     <footer class="flex" id="footer">
         <div><a href="../index.php" class="button">Back</a></div>
         <!--go to highScore page -->
         <div class="name">welcome prashant</div><!-- go to login up page -->
-        <div class="button" id="pausePlay" onclick="pausePlay()">Pause</div><!-- go to signup page -->
+        <div class="button" id="pausePlay" onclick="reset()">Reset</div><!-- go to signup page -->
     </footer>
 </body>
 
 </html>
 <script>
-    var score=0;
-    let i,a = document.getElementById("yo").children;
+    var score=0,gameStart=true;
+    let i,a = document.getElementById("diamondBox").children;
     for (i = 0; i < a.length; i++) {
         a[i].addEventListener("click", rotate);
         a[i].style.border = "5px solid white";
     }
    
     function rotate(e) {
-
-        var trans, clickedElement,win;
+        if(!gameStart){
+            reset();
+            return;
+        }
+        var trans, clickedElement;
 
         clickedElement = e.target.style;
 
@@ -106,15 +131,23 @@
         }
         document.getElementById("score").innerHTML="Move: "+ ++score;
         if (win){
-            document.getElementById("winner").innerHTML = "Winner";
+            document.getElementById("winner").innerHTML = "You Got this";
+            gameOver();
             score=0;
         }
-        else
-        document.getElementById("winner").innerHTML = "Create these white diamonds";
-
-        
+        //else
+        //document.getElementById("winner").innerHTML = "            Winner         ";        
     }
 
+function reset(){
+    for (i = 0; i < a.length; i++) {
+        a[i].style.border = "5px solid white";
+        a[i].style.transform="rotate(0deg)";
+        document.getElementById("winner").innerHTML = "Create these white diamonds";
+        document.getElementById("score").innerHTML="Move: 0";
+        gameStart=true;
+    }
+}
 function gameOver(){//gameOver//////////////
     var url="../highScore/scoreSaving.php?score="+score+"&gameId="+3;
     sendData(url)

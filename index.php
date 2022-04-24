@@ -63,7 +63,7 @@ if(!$log)
         <div id="control">
             <div id="game1" onclick=""><a href="Game1/ballonPopper.php"><img src="images/Game1.png" alt="game"></a></div>
             <div id="game1" onclick=""><a href="Game2/spaceAdventure.php"><img src="images/Game2.png" alt="game"></a></div>
-            <div id="game3" onclick=""><img src="images/Game3.png" alt="game"></div>
+            <div id="game1" onclick=""><a href="Game3/diamondPuzzle.html"><img src="images/Game3.png" alt="game"></a></div>
             <div id="game4" onclick=""><img src="images/Game4.png" alt="game"></div>
             <div id="game4" onclick=""><img src="images/logo.png" alt="game"></div>
             <div id="game5" onclick=""><img src="images/Game5.png" alt="game"></div>

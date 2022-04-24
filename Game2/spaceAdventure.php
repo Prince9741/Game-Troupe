@@ -155,9 +155,11 @@ function handleBallons() {
         if (ballonsArray[i].y > canvas.height + ballonsArray[i].radius * 2) {
             ballonsArray.splice(i, 1);
             score++;
-            if(!(score%10))
+            if(!(score%5) && difficulty>40)
                     difficulty--;
-            if(!(score%30))
+            else if(!(score%20) && difficulty>30)
+                difficulty--;
+            if(!(score%20))
                     ballonSpeed++;
             i--;
         }
@@ -167,6 +169,8 @@ function handleBallons() {
                 ballonsArray[i].counted = true;
                 ballonsArray.splice(i, 1);
                 life--;
+                if(life<6)
+                   difficulty+=5;
             }
         }
     }

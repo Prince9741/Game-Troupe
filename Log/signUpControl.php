@@ -18,12 +18,12 @@ function runQuary($conn,$sql){//to ran our query
     $result=$conn->query("SELECT * FROM `Players` WHERE `userName`='$userName'");//find the user data
     if($result->num_rows==1)
     {
-        $_SESSION['msg']='<div class="msg">Already exist: '.$userName.'</div>';
+        $_SESSION['msg']='<a href="logIn.php" class="msg"><div>'.$userName.': Already exist</div></a>';
         $error=true;
     }
     else{
         $result= $conn->query($sql);
-        $_SESSION['msg']='<div class="msg msgSuccess">Successful Registered: '.$userName.'</div>';
+        $_SESSION['msg']='<div class="msg msgSuccess">'.$userName.': Successful Registered</div>';
     }
 }
 
