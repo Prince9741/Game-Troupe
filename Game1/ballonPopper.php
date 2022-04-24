@@ -22,7 +22,11 @@
     }
     #canvas1 {
         border: 2px solid white;
-        background: url("background1.png");
+        background-image:url(background1.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
         cursor:grab;
     }
     </style>
@@ -60,6 +64,13 @@ canvas.height = screen.height-280;
 ctx.font = '30px Georgia';
 ctx.fillStyle='black';
 ctx.fillText("Click to Play",canvas.width/2-100,canvas.height/2+35);
+//repeating background
+const background = new Image();
+background.src = 'background1.png';
+
+function handleBackground() {
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+} 
 //Mouse Interactivtivity
 let canvasPosition = canvas.getBoundingClientRect();
 const mouse = {
@@ -97,9 +108,9 @@ canvas.addEventListener('mouseup', function (event) {
     mouse.click = false;
     canvas.style.cursor='grab';
 });
-//player
-const playerLeft = new Image();
-playerLeft.src = 'star.png';
+//star
+const starImage = new Image();
+starImage.src = 'star.png';
 class Player {
     constructor() {
         this.x = canvas.width;
@@ -125,19 +136,13 @@ class Player {
         ctx.translate(this.x, this.y);
         if (gameFrame % 3 == 0) this.angle++;
         ctx.rotate(this.angle);
-        ctx.drawImage(playerLeft, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, 0 - 29, 0 - 29, this.spriteWidth / 4, this.spriteHeight / 4);
+        ctx.drawImage(starImage, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, 0 - 29, 0 - 29, this.spriteWidth / 4, this.spriteHeight / 4);
         ctx.restore();
     }
 }
-const player = new Player();
+const star = new Player();
 
-//repeating background
-const background = new Image();
-background.src = 'background1.png';
 
-function handleBackground() {
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-} 
 
 //ballons
 const ballonsArray = [];
@@ -154,8 +159,8 @@ class Bubble {
     }
     update() {
         this.y -= this.speed;
-        const dx = this.x - player.x;
-        const dy = this.y - player.y;
+        const dx = this.x - star.x;
+        const dy = this.y - star.y;
         this.distance = Math.sqrt(dx * dx + dy * dy);
     }
     draw() {
@@ -181,7 +186,7 @@ function handleBallons() {
                    difficulty+=5;
             i--;
         }
-        else if (ballonsArray[i].distance < ballonsArray[i].radius + player.radius) {
+        else if (ballonsArray[i].distance < ballonsArray[i].radius + star.radius) {
             if (!ballonsArray[i].counted) {
                 ballonPop1.pause();
                 ballonPop1.play();
@@ -232,8 +237,8 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     handleBackground();
     handleBallons();
-    player.update();
-    player.draw();
+    star.update();
+    star.draw();
     ctx.fillText('Score: ' + score, 10, canvas.height-10);
     ctx.fillText('Life: ' + life,  canvas.width-100, canvas.height-10);
     gameFrame++;

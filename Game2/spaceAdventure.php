@@ -22,12 +22,16 @@
     }
     #canvas1 {
         border: 2px solid white;
-        background: url("background1.png");
+        background-image:url(background1.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
         cursor:grab;
     }
     </style>
 </head>
-<body onload="animate()">
+<body>
     <header>
         <nav class="flex" id="navbar">
             <div class=""><a href="#"><img src="../images/logo.png"></a></div>
@@ -50,7 +54,7 @@
 let gameFrame,score;
 let difficulty; //descrease to increase the density;
 let starSpeed;//descrease to increase the speed;
-let ballonSpeed;//increase to increase the speed
+let asteroidSpeed;//increase to increase the speed
 let life,gameStart;
 //canvas setup
 const canvas = document.getElementById('canvas1');
@@ -59,6 +63,7 @@ canvas.width = screen.width-30;
 canvas.height = screen.height-280;
 ctx.font = '30px Georgia';
 ctx.fillStyle='white';
+ctx.fillText("Click to Play",canvas.width/2-100,canvas.height/2+35);
 //Mouse Interactivtivity
 let canvasPosition = canvas.getBoundingClientRect();
 const mouse = {
@@ -71,7 +76,7 @@ function gameValueSet(){
     score = 0;
     difficulty = 50;//descrease to increase the density;
     starSpeed = 5;//descrease to increase the speed;
-    ballonSpeed = 1;//increase to increase the speed
+    asteroidSpeed = 1;//increase to increase the speed
     life=10;
     mouse.x= canvas.width / 2;
     mouse.y= canvas.height / 2;
@@ -80,8 +85,8 @@ gameValueSet();
 gameStart=false;
 canvas.addEventListener('mousemove', function (event) {
     mouse.click = true;
-    mouse.x = event.x - canvasPosition.left-player.width/2;
-    mouse.y = event.y - canvasPosition.top-player.height/2;
+    mouse.x = event.x - canvasPosition.left-Ship.width/2;
+    mouse.y = event.y - canvasPosition.top-Ship.height/2;
 });
 canvas.addEventListener('click', function (event) {
     if(!gameStart){
@@ -93,9 +98,9 @@ canvas.addEventListener('click', function (event) {
     }
 });
 
-//player
-const playerLeft = new Image();
-playerLeft.src = 'star.png';
+//Ship
+const ShipImage = new Image();
+ShipImage.src = 'star.png';
 class Player {
     constructor() {
         this.x = canvas.width/2;
@@ -119,11 +124,11 @@ class Player {
     }
     draw() {
         ctx.save();
-        ctx.drawImage(playerLeft,this.x,this.y,this.width,this.height);
+        ctx.drawImage(ShipImage,this.x,this.y,this.width,this.height);
         ctx.restore();
     }
 }
-const player = new Player();
+const Ship = new Player();
 //repeating background
 const background = new Image();
 background.src = 'background1.png';
@@ -131,63 +136,63 @@ background.src = 'background1.png';
 function handleBackground() {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 } 
-//ballons
-const ballonsArray = [];
+//asteroids
+const asteroidsArray = [];
 class Bubble {
     constructor(imgValue) {
         this.x = Math.random() * canvas.width;
         this.radius = Math.random() * 10 + 20;
         this.y = 0 - this.radius;
-        this.speed = Math.random() * 5 + ballonSpeed;
+        this.speed = Math.random() * 5 + asteroidSpeed;
         this.counted = false;
         this.imgValue = imgValue;
     }
     update() {
         this.y += this.speed;
-        const dx = this.x - player.x;
-        const dy = this.y - player.y;
+        const dx = this.x - Ship.x;
+        const dy = this.y - Ship.y;
     }
     draw() {
-        ballonImage.src=this.imgValue+".png";
-        ctx.drawImage(ballonImage, this.x-this.radius, this.y-this.radius, this.radius * 2, this.radius * 2);
+        asteroidImage.src=this.imgValue+".png";
+        ctx.drawImage(asteroidImage, this.x-this.radius, this.y-this.radius, this.radius * 2, this.radius * 2);
     }
 }
-const ballonPop1 = document.createElement('audio');
-ballonPop1.src = 'blast.mp3';
-const ballonImage = new Image();
-var ballonColor=1;
-function handleBallons() {
+const asteroidPop1 = document.createElement('audio');
+asteroidPop1.src = 'blast.mp3';
+const asteroidImage = new Image();
+var asteroidColor=1;
+function handleAsteroids() {
     if (!(gameFrame % difficulty)) {//difficulty
-        ballonsArray.push(new Bubble(ballonColor));
-        ballonColor %=3;
-        ballonColor++;
+        asteroidsArray.push(new Bubble(asteroidColor));
+        asteroidColor %=3;
+        asteroidColor++;
     }
-    for (let i = 0; i < ballonsArray.length; i++) {
-        if (ballonsArray[i].y > canvas.height + ballonsArray[i].radius * 2) {
-            ballonsArray.splice(i, 1);
+    for (let i = 0; i < asteroidsArray.length; i++) {
+        if (asteroidsArray[i].y > canvas.height + asteroidsArray[i].radius * 2) {
+            asteroidsArray.splice(i, 1);
             score++;
             if(!(score%5) && difficulty>40)
                     difficulty--;
             else if(!(score%20) && difficulty>30)
                 difficulty--;
             if(!(score%20))
-                    ballonSpeed++;
+                    asteroidSpeed++;
             i--;
         }
-        else if (RectCircleColliding(player,ballonsArray[i])) {//check distance between circle and rocket
-            if (!ballonsArray[i].counted) {
-                ballonPop1.play();
-                ballonsArray[i].counted = true;
-                ballonsArray.splice(i, 1);
+        else if (RectCircleColliding(Ship,asteroidsArray[i])) {//check distance between circle and rocket
+            if (!asteroidsArray[i].counted) {
+                asteroidPop1.play();
+                asteroidsArray[i].counted = true;
+                asteroidsArray.splice(i, 1);
                 life--;
                 if(life<3)
                    difficulty+=5;
             }
         }
     }
-    for (let i = 0; i < ballonsArray.length; i++) {
-        ballonsArray[i].update();
-        ballonsArray[i].draw();
+    for (let i = 0; i < asteroidsArray.length; i++) {
+        asteroidsArray[i].update();
+        asteroidsArray[i].draw();
     }
 }
 
@@ -219,11 +224,11 @@ function pausePlay(){
         animate();
     }
 }
-ctx.fillText("Click to Play",canvas.width/2-100,canvas.height/2+35);
+
 //game-over
 function gameOver(){//gameOver//////////////
-    for (let i = 0; i < ballonsArray.length; i++)
-        ballonsArray.splice(i, 1);
+    for (let i = 0; i < asteroidsArray.length; i++)
+        asteroidsArray.splice(i, 1);
     ctx.fillText("Game Over",canvas.width/2-65,canvas.height/2);
     ctx.fillText("Click to Play Again",canvas.width/2-110,canvas.height/2+35);
     var url="../highScore/scoreSaving.php?score="+score+"&gameId="+2;
@@ -234,9 +239,9 @@ function gameOver(){//gameOver//////////////
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     handleBackground();
-    handleBallons();
-    player.update();
-    player.draw();
+    handleAsteroids();
+    Ship.update();
+    Ship.draw();
     ctx.fillText('Score: ' + score, 10, canvas.height-10);
     ctx.fillText('Life: ' + life,  canvas.width-100, canvas.height-10);
     gameFrame++;
