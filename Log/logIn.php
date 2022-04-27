@@ -12,8 +12,8 @@ if($log)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game-Troupe Login</title>
     <link rel="icon" href="../images/logo.png">
-    <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="../head-foot.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>

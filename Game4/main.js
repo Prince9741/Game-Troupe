@@ -3,8 +3,8 @@ import { InputHandler } from "./input.js";
 window.addEventListener('load',function(){
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    canvas.width = 1200;
-    canvas.height = 500;
+    canvas.width = screen.width-30;
+    canvas.height = screen.height-280;
     class Game{
         constructor(width,height){
             this.width=width;
