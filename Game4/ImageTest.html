@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballon Poper</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #canvas1 {
+            border: 2px solid red;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            cursor: grab;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <canvas id="canvas1"></canvas>
+    </div>
+</body>
+
+</html>
+<script>
+    //canvas setup
+    const canvas = document.getElementById('canvas1');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 500;
+    canvas.height = 500;
+    ctx.fillStyle = 'black';
+
+    const starImage = new Image();
+    starImage.src = 'player.png';
+    class Player {
+        constructor() {
+            this.width = 100;
+            this.height = 91.3;
+            this.sWidth = 100;
+            this.sHeight = 91.3;
+            this.x = 0;
+            this.y = 0;
+            this.frameX=0;
+            this.frameY=0;
+        }
+        update() {
+            if(!this.x)
+            this.x=1;
+            if(this.frameX<6)
+            this.frameX++;
+            else
+            this.frameX=0;
+            console.log(this.frameX);
+        }
+        draw() {
+            ctx.drawImage(starImage, this.frameX * this.sWidth, this.frameY * this.sHeight, this.sWidth, this.sHeight,0,0, this.sWidth,this.sHeight);
+        }
+    }
+    const star = new Player();
+    //Animation
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        star.update();
+        star.draw();
+        requestAnimationFrame(animate);
+    }
+    window.addEventListener("click",()=>{
+    })
+    animate();
+</script>
