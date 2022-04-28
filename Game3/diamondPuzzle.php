@@ -138,7 +138,6 @@
         if (win){
             document.getElementById("winner").innerHTML = "Puzzle Solved";
             gameOver();
-            score=0;
         }
         //else
         //document.getElementById("winner").innerHTML = "            Winner         ";        
@@ -149,6 +148,7 @@ function reset(){
         a[i].style.border = "5px solid white";
         a[i].style.transform="rotate(0deg)";
         document.getElementById("winner").innerHTML = defaultMsg;
+        score=0;
         document.getElementById("score").innerHTML="Move: 0";
         gameStart=true;
     }
