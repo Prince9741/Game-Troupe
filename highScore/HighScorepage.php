@@ -99,10 +99,10 @@
     </header>
     <div class="container flex">
         <div id="control">
-            <div id="game1" onclick="currentGame(0,1)"><img src="../images/Game1.png" alt="game"></div>
-            <div id="game2" onclick="currentGame(1,2)"><img class="active" src="../images/Game2.png" alt="game"></div>
-            <div id="game3" onclick="currentGame(2,3)"><img src="../images/Game3.png" alt="game"></div>
-            <div id="game4" onclick="currentGame(3,4)"><img src="../images/Game4.png" alt="game"></div>
+            <div id="game1" onclick="currentGame(0,1)" ondblclick="playGame(1)"><img src="../images/Game1.png" alt="game"></div>
+            <div id="game2" onclick="currentGame(1,2)" ondblclick="playGame(2)"><img class="active" src="../images/Game2.png" alt="game"></div>
+            <div id="game3" onclick="currentGame(2,3)" ondblclick="playGame(3)"><img src="../images/Game3.png" alt="game"></div>
+            <div id="game4" onclick="currentGame(3,4)" ondblclick="playGame(4)"><img src="../images/Game4.png" alt="game"></div>
             <div class="data flex">
                 <table>
                     <thead>
@@ -117,7 +117,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id="game5" onclick="currentGame(5,5)"><img src="../images/Game5.png" alt="game"></div>
+            <div id="game5" onclick="currentGame(5,5)" ondblclick="playGame(5)"><img src="../images/Game5.png" alt="game"></div>
         </div>
     </div>
     <footer class="flex" id="footer">
@@ -138,6 +138,12 @@
         img[active].firstChild.classList.remove("active");
         img[nextLoc].firstChild.classList.add("active");
         active=nextLoc;
+    }
+    gameList={1:"ballonPopper.php",2:"spaceAdventure.php",3:"diamondPuzzle.php",4:"runner.php",5:"#"};
+    function playGame(e){
+        gameName=gameList[e];
+        url="../Game"+e+"/"+gameName;
+        window.location=url;
     }
 </script>
 </script> 

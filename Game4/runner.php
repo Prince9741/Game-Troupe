@@ -1,6 +1,11 @@
+<?php
+session_start();
+$log=isset($_SESSION['loggedin']);
+if(!$log)
+    header("location:../log/logIn.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +13,7 @@
     <title>Game-Troupe Login</title>
     <link rel="icon" href="../images/logo.png">
     <link rel="stylesheet" href="../head-foot.css">
+    <script src="../allFileJs.js"></script>
     <style>
         * {
             margin: 0px;
@@ -22,7 +28,7 @@
           transform: translate(-50%,-50%);
           max-height: 100%;
           max-width: 100%;
-          background-color: rgba(255, 255, 255, 0.678);
+          background-color:rgb(43 87 108 / 68%);
         }
         #player{
           display: none;
@@ -45,7 +51,7 @@
   <footer class="flex" id="footer">
       <div><a href="../index.php" class="button">Back</a></div>
       <!--go to highScore page -->
-      <div class="name"><?php session_start(); echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
+      <div class="name"><?php echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
       <div class="button" id="pausePlay" onclick="pausePlay()">Pause</div><!-- go to signup page -->
   </footer>
 </body>

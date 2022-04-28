@@ -1,3 +1,9 @@
+<?php
+session_start();
+$log=isset($_SESSION['loggedin']);
+if(!$log)
+    header("location:../log/logIn.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +51,7 @@
     <footer class="flex" id="footer">
         <div><a href="../index.php" class="button">Back</a></div>
         <!--go to highScore page -->
-        <div class="name"><?php session_start(); echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
+        <div class="name"><?php echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
         <div class="button" id="pausePlay" onclick="pausePlay()">Pause</div><!-- go to signup page -->
     </footer>
 </body>
