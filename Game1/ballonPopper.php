@@ -62,6 +62,7 @@ let difficulty; //descrease to increase the density;
 let starSpeed;//descrease to increase the speed;
 let ballonSpeed;//increase to increase the speed
 let life,gameStart;
+let ballonColor
 //canvas setup
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
@@ -90,7 +91,8 @@ function gameValueSet(){
     difficulty = 50;//descrease to increase the density;
     starSpeed = 3;//descrease to increase the speed;
     ballonSpeed = 1;//increase to increase the speed
-    life=7;
+    life=70;
+    ballonColor=1;
     mouse.x= canvas.width / 2;
     mouse.y= canvas.height / 2;
 }
@@ -103,9 +105,7 @@ canvas.addEventListener('mousedown', function (event) {
     canvas.style.cursor='grabbing';
    
     if(!gameStart){
-        if(!life){//if life is zero and game is paused
-            gameValueSet();
-        }
+        if(!life)gameValueSet();//if life is zero and game is paused
         gameStart=true;
         animate(); 
     }
@@ -148,11 +148,9 @@ class Player {
 }
 const star = new Player();
 
-
-
 //ballons
 const ballonsArray = [];
-class Bubble {
+class Ballon {
     constructor(imgValue) {
         this.x = Math.random() * canvas.width;
         this.radius = Math.random() * 15 + 30;
@@ -174,13 +172,46 @@ class Bubble {
         ctx.drawImage(ballonImage, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
     }
 }
+const blastImage= new Image();
+class Blast {
+    constructor(x,y,radius,imgValue) {
+        this.x = x;
+        this.radius = radius;
+        this.y = y;
+        this.imgValue = imgValue;
+        this.frame=1;
+        this.blastMaxFrame=30;
+        this.blastFrame=0;
+    }
+    update() {
+        //blastFrame=gameFrame+30;
+        //if(!gameFrame%3)
+            this.frame++;
+    }
+    draw() {
+        // ctx.beginPath();
+        // ctx.fillStyle="red";
+        // ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+        // ctx.fill();
+        ballonImage.src=this.imgValue+"/"+this.frame+".png";
+        ctx.drawImage(ballonImage, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
+    }
+}
+const blastArray=[];
+function ballonBlast(){
+    for (let i = 0; i < blastArray.length; i++) {
+        blastArray[i].draw();
+        blastArray[i].update();
+        if(blastArray[i].frame>6)
+            blastArray.splice(i, 1);
+    }
+}
 const ballonPop1 = document.createElement('audio');
 ballonPop1.src = 'pop.mp3';
 const ballonImage = new Image();
-var ballonColor=1;
 function handleBallons() {
     if (!(gameFrame % difficulty)) {//difficulty
-        ballonsArray.push(new Bubble(ballonColor));
+        ballonsArray.push(new Ballon(ballonColor));
         ballonColor %=4;
         ballonColor++;
     }
@@ -204,6 +235,7 @@ function handleBallons() {
                 if(!(score%20))
                         ballonSpeed++;
                 ballonsArray[i].counted = true;
+                blastArray.push(new Blast(ballonsArray[i].x,ballonsArray[i].y,ballonsArray[i].radius,ballonsArray[i].imgValue));
                 ballonsArray.splice(i, 1);
             }
         }
@@ -237,6 +269,8 @@ window.onkeypress = function(event) {
 function gameOver(){//gameOver//////////////
     for (let i = 0; i < ballonsArray.length; i++)
         ballonsArray.splice(i, 1);
+    for (let i = 0; i < blastArray.length; i++)
+        blastArray.splice(i, 1);
     ctx.fillText("Game Over",canvas.width/2-65,canvas.height/2);
     ctx.fillText("Click to Play Again",canvas.width/2-110,canvas.height/2+35);
     var url="../highScore/scoreSaving.php?score="+score+"&gameId="+1;
@@ -248,9 +282,11 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     handleBackground();
     handleBallons();
+    ballonBlast();
     star.update();
     star.draw();
-    ctx.fillText('Score: ' + score, 10, canvas.height-10);
+    // ctx.fillText('Score: ' + score, 10, canvas.height-10);
+    ctx.fillText('Score: ' + gameFrame, 10, canvas.height-10);
     ctx.fillText('Life: ' + life,  canvas.width-100, canvas.height-10);
     gameFrame++;
     if(gameStart)
