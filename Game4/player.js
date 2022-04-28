@@ -3,11 +3,14 @@ import { Sitting,Running, Jumping,Falling } from "./playerStates.js";
 export class Player {
     constructor(game) {
         this.game = game;
-        this.sWidth=this.width = 100;
-        this.sHeight=this.height = 91.3;
+        this.sWidth=100;
+        this.sHeight=91.3;
+        this.width =60; 
+        this.height=60;
         this.y = this.game.height - this.height-this.game.groundMargin;
-        this.x = 0;
+        this.x = this.width/2;
         this.frameY=this.vy = 0;
+        this.jumpHeight=20;
         this.weight = 1;
         this.image = document.getElementById("player");
         this.frameX=0;
@@ -44,8 +47,12 @@ export class Player {
           this.frameTimer+=deltaTime;
         }
     }
-    draw(context) {
-       context.drawImage(this.image, this.frameX * this.sWidth, this.frameY * this.sHeight, this.sWidth, this.sHeight,this.x,this.y, this.sWidth,this.sHeight); 
+    draw(ctx) {
+      // ctx.beginPath();
+      // ctx.fillStyle="red";
+      // ctx.fillRect(this.x,this.y,this.width,this.height);
+      // ctx.fill();
+      ctx.drawImage(this.image, this.frameX * this.sWidth, this.frameY * this.sHeight, this.sWidth, this.sHeight,this.x,this.y, this.width,this.height); 
     }
     onGround() {
           return this.y>=this.game.height-this.height-this.game.groundMargin;

@@ -62,10 +62,10 @@ if(!$log)
     <div class="container flex">
         <div id="control">
             <div id="game1" onclick=""><a href="Game1/ballonPopper.php"><img src="images/Game1.png"></a></div>
-            <div id="game1" onclick=""><a href="Game2/spaceAdventure.php"><img src="images/Game2.png"></a></div>
+            <div id="game2" onclick=""><a href="Game2/spaceAdventure.php"><img src="images/Game2.png"></a></div>
             <div id="game3" onclick=""><a href="Game3/diamondPuzzle.php"><img src="images/Game3.png"></a></div>
-            <div id="game4" onclick=""><img src="images/Game4.png"></div>
-            <div id="game4" onclick=""><img src="images/logo.png"></div>
+            <div id="game4" onclick=""><a href="Game4/runner.php"><img src="images/Game4.png"></a></div>
+            <div id="game123" onclick=""><img src="images/logo.png"></div>
             <div id="game5" onclick=""><img src="images/Game5.png"></div>
         </div>
     </div>
