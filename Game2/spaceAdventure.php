@@ -61,7 +61,7 @@ let gameFrame,score;
 let difficulty; //descrease to increase the density;
 let starSpeed;//descrease to increase the speed;
 let asteroidSpeed;//increase to increase the speed
-let life,gameStart;
+let life,gameStart,asteroidColor;
 //canvas setup
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
@@ -79,6 +79,7 @@ const mouse = {
 }
 function gameValueSet(){
     gameFrame = 0;
+    asteroidColor=1
     score = 0;
     difficulty = 50;//descrease to increase the density;
     starSpeed = 5;//descrease to increase the speed;
@@ -163,36 +164,32 @@ class Bubble {
         ctx.drawImage(asteroidImage, this.x-this.radius, this.y-this.radius, this.radius * 2, this.radius * 2);
     }
 }
-const asteroidPop1 = document.createElement('audio');
-asteroidPop1.src = 'blast.mp3';
+const lifeGone = document.createElement('audio');
+lifeGone.src = 'blast.mp3';
 const asteroidImage = new Image();
-var asteroidColor=1;
+
 function handleAsteroids() {
     if (!(gameFrame % difficulty)) {//difficulty
         asteroidsArray.push(new Bubble(asteroidColor));
         asteroidColor %=3;
         asteroidColor++;
+        console.log(asteroidColor);
     }
     for (let i = 0; i < asteroidsArray.length; i++) {
         if (asteroidsArray[i].y > canvas.height + asteroidsArray[i].radius * 2) {
             asteroidsArray.splice(i, 1);
-            score++;
-            if(!(score%5) && difficulty>40)
-                    difficulty--;
-            else if(!(score%20) && difficulty>30)
-                difficulty--;
-            if(!(score%20))
-                    asteroidSpeed++;
             i--;
         }
         else if (RectCircleColliding(Ship,asteroidsArray[i])) {//check distance between circle and rocket
             if (!asteroidsArray[i].counted) {
-                asteroidPop1.play();
+                
                 asteroidsArray[i].counted = true;
+                if(asteroidsArray[i].imgValue==3){score++;}
+                else {life--;lifeGone.play();}
                 asteroidsArray.splice(i, 1);
-                life--;
-                if(life<3)
-                   difficulty+=5;
+                if(!(score%5) && difficulty>45 || !(score%10) && difficulty>40) difficulty--;
+                if(!(score%5)) asteroidSpeed++;
+                if(life<3) difficulty+=3;
             }
         }
     }
