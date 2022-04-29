@@ -91,7 +91,7 @@ function gameValueSet(){
     difficulty = 50;//descrease to increase the density;
     starSpeed = 3;//descrease to increase the speed;
     ballonSpeed = 1;//increase to increase the speed
-    life=70;
+    life=7;
     ballonColor=1;
     mouse.x= canvas.width / 2;
     mouse.y= canvas.height / 2;
@@ -126,8 +126,8 @@ class Player {
         this.frameX = 0;
         this.frameY = 0;
         this.freame = 0;
-        this.spriteWidth = 498;
-        this.spriteHeight = 327;
+        this.sWidth = 220;
+        this.sHeight = 229;
     }
     update() {
         const dx = this.x - mouse.x;
@@ -142,7 +142,7 @@ class Player {
         ctx.translate(this.x, this.y);
         if (gameFrame % 3 == 0) this.angle++;
         ctx.rotate(this.angle);
-        ctx.drawImage(starImage, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, 0 - 29, 0 - 29, this.spriteWidth / 4, this.spriteHeight / 4);
+        ctx.drawImage(starImage, this.frameX * this.sWidth, this.frameY * this.sHeight, this.sWidth, this.sHeight, - this.radius, - this.radius, this.sWidth / 4, this.sHeight / 4);
         ctx.restore();
     }
 }
@@ -156,9 +156,12 @@ class Ballon {
         this.radius = Math.random() * 15 + 30;
         this.y = canvas.height + this.radius;
         this.speed = Math.random() * 5 + ballonSpeed;
+        this.frame=0;
+        this.sWidth=100;
+        this.sHeight=100;
         this.distance;
         this.counted = false;
-        this.imgValue = imgValue;
+        this.imgValue = imgValue+".png";
         this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2';
     }
     update() {
@@ -168,8 +171,8 @@ class Ballon {
         this.distance = Math.sqrt(dx * dx + dy * dy);
     }
     draw() {
-        ballonImage.src=this.imgValue+".png";
-        ctx.drawImage(ballonImage, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
+        ballonImage.src=this.imgValue;
+        ctx.drawImage(ballonImage, this.frame * this.sWidth, 0, this.sWidth, this.sHeight, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
     }
 }
 const blastImage= new Image();
@@ -179,22 +182,29 @@ class Blast {
         this.radius = radius;
         this.y = y;
         this.imgValue = imgValue;
-        this.frame=1;
         this.blastMaxFrame=30;
         this.blastFrame=0;
+        this.frame=0;
+        this.frameLength=6;
+        this.sWidth=100;
+        this.sHeight=100;
+        this.code=1;
     }
     update() {
-        //blastFrame=gameFrame+30;
-        //if(!gameFrame%3)
+        if(this.code){
             this.frame++;
+            this.code=0;
+        }
+        else this.code=1;
     }
     draw() {
         // ctx.beginPath();
         // ctx.fillStyle="red";
         // ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
         // ctx.fill();
-        ballonImage.src=this.imgValue+"/"+this.frame+".png";
-        ctx.drawImage(ballonImage, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
+        ballonImage.src=this.imgValue;
+        ctx.drawImage(ballonImage, this.frame * this.sWidth, 0, this.sWidth, this.sHeight, this.x - 48, this.y - 40, this.radius * 2.6, this.radius * 2.6);
+    
     }
 }
 const blastArray=[];
@@ -202,8 +212,8 @@ function ballonBlast(){
     for (let i = 0; i < blastArray.length; i++) {
         blastArray[i].draw();
         blastArray[i].update();
-        if(blastArray[i].frame>6)
-            blastArray.splice(i, 1);
+        if(blastArray[i].frame>blastArray[i].frameLength)
+           blastArray.splice(i, 1);
     }
 }
 const ballonPop1 = document.createElement('audio');
@@ -232,7 +242,7 @@ function handleBallons() {
                     difficulty--;
                 else if(!(score%20) && difficulty>30)
                     difficulty--;
-                if(!(score%20))
+                if(!(score%15))
                         ballonSpeed++;
                 ballonsArray[i].counted = true;
                 blastArray.push(new Blast(ballonsArray[i].x,ballonsArray[i].y,ballonsArray[i].radius,ballonsArray[i].imgValue));
@@ -285,8 +295,7 @@ function animate() {
     ballonBlast();
     star.update();
     star.draw();
-    // ctx.fillText('Score: ' + score, 10, canvas.height-10);
-    ctx.fillText('Score: ' + gameFrame, 10, canvas.height-10);
+    ctx.fillText('Score: ' + score, 10, canvas.height-10);
     ctx.fillText('Life: ' + life,  canvas.width-100, canvas.height-10);
     gameFrame++;
     if(gameStart)
