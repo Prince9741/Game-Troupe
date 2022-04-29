@@ -15,20 +15,25 @@ if(!$log)
     <link rel="stylesheet" href="../head-foot.css">
     <script src="../allFileJs.js"></script>
     <style>
-        * {
-            margin: 0px;
-            padding: 0px;
-        }
-
-        #canvas1 {
-          border: 5px solid black;
-          position: absolute;
-          top:50%;
-          left:50%;
-          transform: translate(-50%,-50%);
-          max-height: 100%;
-          max-width: 100%;
-          background-color:rgb(43 87 108 / 68%);
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    #container {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #canvas1 {
+        border: 5px solid black;
+        background-image:url(background1.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        cursor:grab;
         }
         #player{
           display: none;
@@ -63,7 +68,7 @@ if(!$log)
   window.addEventListener('load', function () {
     let score;
     let life, gameStart;
-    let lastTime,obsticleSpeed,next;
+    let lastTime,obsticleSpeed,next,obsticleDistance;
     //canvas setup
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
@@ -75,9 +80,10 @@ if(!$log)
     //Mouse Interactivtivity
     function gameValueSet() {
       score = 0;
-      life = 3;
+      life = 5;
       lastTime=0;
       obsticleSpeed = 10;
+      obsticleDistance=10;
       next = 0;
     }
     gameValueSet();
@@ -93,14 +99,14 @@ if(!$log)
     });
 
     //repeating background
-    // const background = new Image();
-    // background.src = 'background1.png';
+    const background = new Image();
+    background.src = 'background1.png';
 
-    // function handleBackground() {
-    //   ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-    // }
+    function handleBackground() {
+      ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+    }
 
-    //pausePlay
+    pausePlay
     function pausePlay() {
       var pausePlayValue = document.getElementById("pausePlay");
       if (gameStart) {
@@ -143,9 +149,9 @@ if(!$log)
       draw(context) {
         this.player.draw(context);
         context.beginPath();
+        context.strokeStyle = "black";
         context.moveTo(0,this.height-this.groundMargin);
         context.lineTo(this.width, this.height-this.groundMargin);
-        context.strokeStyle = "red";
         context.stroke();
       }
     }
@@ -153,11 +159,12 @@ if(!$log)
     console.log(game);
     class Obsticle {
       constructor() {
-        this.height = Math.random() * 50 + 30;
-        this.width =Math.random() * 30 + 30;
-        this.bar=10;
+        this.height =Math.random() * 45 + 20;
+        this.width =Math.random() * 30 + 25;
+        this.bar=8;
         this.x = game.width - this.width;
         this.y = game.height - this.height - game.groundMargin;
+        this.counted = false;
       }
       update() {
         this.x = this.x - obsticleSpeed;
@@ -177,7 +184,7 @@ if(!$log)
     function handleObsticle() {
       if (!next) {
         obsticleArray.push(new Obsticle);
-        next = parseInt(Math.random() * 30 + game.player.width);
+        next = parseInt(Math.random() * obsticleDistance + game.player.width/2);
         console.log(next);
       }
       else next--;
@@ -189,23 +196,31 @@ if(!$log)
         if (obsticleArray[i].x + obsticleArray[i].width < 0) {
           obsticleArray.splice(i, 1);
           score++;
+          if(!(score%10)) {
+            obsticleSpeed++;
+            obsticleDistance+=1;
+          }
           console.log("destroy by wall");
+          i--;
         }
-        if (game.player.x < obsticleArray[i].x + obsticleArray[i].width &&
+        else if (game.player.x < obsticleArray[i].x + obsticleArray[i].width &&
           game.player.y < obsticleArray[i].y + obsticleArray[i].height &&
           game.player.x + game.player.width > obsticleArray[i].x &&
           game.player.y + game.player.height > obsticleArray[i].y) {
-          obsticleArray.splice(i, 1);
-          life--;
-          console.log("destroy by dog");
+          if (!obsticleArray[i].counted){
+            obsticleArray[i].counted = true;
+            obsticleArray.splice(i, 1);
+            life--;
+            console.log("destroy by dog");
+          }
         }
       }
     }
-    
     function animate(timeStamp) {
       const deltaTime = timeStamp - lastTime;
       lastTime = timeStamp;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      handleBackground();
       handleObsticle();
       game.update(deltaTime);
       game.draw(ctx);

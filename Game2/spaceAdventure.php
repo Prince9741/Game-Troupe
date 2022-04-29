@@ -182,9 +182,8 @@ function handleAsteroids() {
         }
         else if (RectCircleColliding(Ship,asteroidsArray[i])) {//check distance between circle and rocket
             if (!asteroidsArray[i].counted) {
-                
                 asteroidsArray[i].counted = true;
-                if(asteroidsArray[i].imgValue==3){score++;}
+                if(asteroidsArray[i].imgValue==3)score++;
                 else {life--;lifeGone.play();}
                 asteroidsArray.splice(i, 1);
                 if(!(score%5) && difficulty>45 || !(score%10) && difficulty>40) difficulty--;

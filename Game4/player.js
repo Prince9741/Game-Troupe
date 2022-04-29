@@ -8,9 +8,9 @@ export class Player {
         this.width =60; 
         this.height=60;
         this.y = this.game.height - this.height-this.game.groundMargin;
-        this.x = this.width/2;
+        this.x = this.width/3;
         this.frameY=this.vy = 0;
-        this.jumpHeight=20;
+        this.jumpHeight=17;
         this.weight = 1;
         this.image = document.getElementById("player");
         this.frameX=0;
