@@ -41,16 +41,16 @@
         padding: 5px;
     }
     
-    .data tr{
+    .data tr,.heading{
         color: var(--tColor);
         font-family: cursive;
     }
-    .data td{
+    .data td,.heading{
         text-align: center;
         border-radius: 40%;
-        border-bottom: 3px solid var(--tColor);
-        padding: 4px 10px;
-        font-size: 1.6em;
+        border-bottom: 2.5px solid var(--tColor);
+        padding: 3px 10px;
+        font-size: 1.5em;
     }
     .others td{
         color:yellow;
@@ -83,7 +83,7 @@
             height: 70px;
         }
         .data td{
-            font-size: 1.3em;
+            font-size: 1.2em;
         }
     }
      </style>
@@ -94,6 +94,7 @@
         <nav class="flex" id="navbar">
             <div class=""><a href="#"><img src="../images/logo.png"></a></div>
             <!--go to highScore page -->
+            
             <div id="title"><a href="#">Game-Troupe</a></div>
         </nav>
     </header>
@@ -103,17 +104,17 @@
             <div id="game2" onclick="currentGame(1,2)" ondblclick="playGame(2)"><img class="active" src="../images/Game2.png" alt="game"></div>
             <div id="game3" onclick="currentGame(2,3)" ondblclick="playGame(3)"><img src="../images/Game3.png" alt="game"></div>
             <div id="game4" onclick="currentGame(3,4)" ondblclick="playGame(4)"><img src="../images/Game4.png" alt="game"></div>
-            <div class="data flex">
-                <table>
+            <div class="data">
+                <table><div class="heading">High Scores</div>
                     <thead>
-                        <tr class="heading">
+                        <tr>
                             <td>Name</td>
                             <td>Score</td>
                             <td>Date</td>
                         </tr>
                     </thead>
                     <tbody id="dataContent">
-                           <?php require "highScore.php"?>
+                        <?php require "highScore.php"?>
                     </tbody>
                 </table>
             </div>
