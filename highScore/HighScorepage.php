@@ -139,7 +139,7 @@
         img[nextLoc].firstChild.classList.add("active");
         active=nextLoc;
     }
-    gameList={1:"ballonPopper.php",2:"spaceAdventure.php",3:"diamondPuzzle.php",4:"runner.php",5:"#"};
+    gameList={1:"ballonPopper.php",2:"spaceAdventure.php",3:"diamondPuzzle.php",4:"runner.php",5:"flappyBird.php"};
     function playGame(e){
         gameName=gameList[e];
         url="../Game"+e+"/"+gameName;

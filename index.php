@@ -66,7 +66,7 @@ if(!$log)
             <div id="game3" onclick=""><a href="Game3/diamondPuzzle.php"><img src="images/Game3.png"></a></div>
             <div id="game4" onclick=""><a href="Game4/runner.php"><img src="images/Game4.png"></a></div>
             <div id="game123" onclick=""><img src="images/logo.png"></div>
-            <div id="game5" onclick=""><img src="images/Game5.png"></div>
+            <div id="game5" onclick=""><a href="Game5/flappyBird.php"><img src="images/Game5.png"></a></div>
         </div>
     </div>
     <footer class="flex" id="footer">

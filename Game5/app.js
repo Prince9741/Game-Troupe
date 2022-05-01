@@ -1,12 +1,14 @@
 (function() {
     //Get canvas and context
-    var c   = document.getElementById('canvas'),
-        ctx = c.getContext('2d');
-
+    const canvas   = document.getElementById('canvas1');
+    const ctx = canvas.getContext('2d');
+    canvas.width = screen.width-30;
+    canvas.height = screen.height-280;
+    ctx.font = '30px Georgia';
     //Load assets
-    var bgImg = loadImage('abackground.jpg', 640, 480),
-        playerImg = loadImage('aplayer.png', 192, 64),
-        enemyUpImg = loadImage('aenemy_up.png', 64, 316),
+    // var bgImg = loadImage('background1.jpg', 1200, 500);
+    var playerImg = loadImage('player.png', 192, 64),
+        enemyUpImg = loadImage('enemy_up.png', 64, 316),
         enemyDownImg = loadImage('enemy_down.png', 64, 316);
 
     var pointAudio = new Audio('point.mp3'),
@@ -44,7 +46,7 @@
 
     //Game constants
     var PLAYER_CONTROLS_ON = false;
-    var GAME_PLAYING = false;
+    var gameStart = false;
 
     //Classes & objects
     //******* Score counter object **********//
@@ -65,20 +67,20 @@
     };
 
     //******* Background Constructor **********//
-    function Background(x, y, speed, img) {
-        this.x = x || 0;
-        this.y = y || 0;
-        this.img   = img || bgImg;
-        this.speed = speed || 1;
-    }
-    Background.prototype = {
-        move: function() {
-            this.x -= this.speed;
-            if (this.x <= -this.img.width) {
-                this.x = c.width;
-            }
-        }
-    };
+    // function Background(x, y, speed, img) {
+    //     this.x = x || 0;
+    //     this.y = y || 0;
+    //     this.img   = img || bgImg;
+    //     this.speed = speed || 1;
+    // }
+    // Background.prototype = {
+    //     move: function() {
+    //         this.x -= this.speed;
+    //         if (this.x <= -this.img.width) {
+    //             this.x = canvas.width;
+    //         }
+    //     }
+    // };
 
     //******* Player Object **********//
     //fps locking vars
@@ -96,10 +98,10 @@
         velocity: 2,
         force: 0.15,
         //positional
-        x: 70,
-        y: 20,
         width: 64,
         height: 64,
+        x: canvas.width/2-30,
+        y: 20,
 
         //methods
         jump: function() {
@@ -132,7 +134,7 @@
             }
 
             //if the player goes above/below screen tag as collided
-            if (playerBottomY < 0 || playerTopY > c.height) {
+            if (playerBottomY < 0 || playerTopY > canvas.height) {
                 hasCollided = true;
             }
 
@@ -172,7 +174,7 @@
         this.imgDirectionIsUp = typeof imgDirectionIsUp === 'undefined' ? true : imgDirectionIsUp;
         this.yOffset = yOffset || 0;
 
-        this.x = c.width + id * ENEMY_OFFSET || 0;
+        this.x = canvas.width + id * ENEMY_OFFSET || 0;
         if
             (this.imgDirectionIsUp) this.y = y + ENEMY_DISTANCE + this.yOffset || 0;
         else
@@ -200,27 +202,26 @@
             }
         }
     };
-
     //Main functions
-    var updateLoop;
-    function update() {
+    var updateLoop,play=true;
+    function animate() {
         draw();
-        updateLoop = window.requestAnimationFrame(update);
+        if(play)
+        updateLoop = window.requestAnimationFrame(animate);
     }
 
     function draw() {
         //Set font style
-        ctx.font = '48px Raleway';
         //Clean canvas
-        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         //Draw next frame with props
-        drawBackground();
+       // drawBackground();
         //If game hasn't started or player lost show splash screen text
-        if (!GAME_PLAYING) {
+        if (!gameStart) {
             ctx.strokeStyle = 'rgba(0,0,0,' + textAlpha.get() + ')';
-            ctx.strokeText('Click to start game', c.width / 2 - 230, 80);
+            ctx.strokeText('Click to Play', canvas.width / 2 - 100, canvas.height/2);
             ctx.fillStyle = 'rgba(255,255,255,' + textAlpha.get() + ')';
-            ctx.fillText('Click to start game', c.width / 2 - 230, 80);
+            ctx.fillText('Click to Play', canvas.width / 2 - 100, canvas.height/2);
             textAlpha.fluctuate();
         }
         //If game is playing draw everything
@@ -228,24 +229,26 @@
             drawEnemies();
             drawPlayer();
             //Draw the score
-            ctx.fillStyle = 'black';
-            ctx.strokeText(scoreCounter.getScore(), c.width / 2 - 11, 51);
             ctx.fillStyle = 'white';
-            ctx.fillText(scoreCounter.getScore(), c.width / 2 - 10, 50);
+            ctx.fillText('Score: ' + scoreCounter.getScore(), 10, canvas.height-10);
         }
     }
 
     //Instantiate, draw and animate backgrounds
-    var bg1 = new Background(0, 0);
-    var bg2 = new Background(c.width, 0);
+    // var bg1 = new Background(0, 0);
+    // var bg2 = new Background(canvas.width*2, 0);
 
-    function drawBackground() {
-        ctx.drawImage(bg1.img, bg1.x, bg1.y);
-        ctx.drawImage(bg2.img, bg2.x, bg2.y);
-        bg1.move();
-        bg2.move();
+    // function drawBackground() {
+    //     ctx.drawImage(bg1.img, bg1.x, bg1.y);
+    //     ctx.drawImage(bg2.img, bg2.x, bg2.y);
+    //     bg1.move();
+    //     bg2.move();
+    // }
+    function gameOver(){//gameOver//////////////
+        gameStart=false;
+        var url="../highScore/scoreSaving.php?score="+scoreCounter.getScore()+"&gameId="+5;
+        sendData(url)
     }
-
     //Instantiate and draw player
     function drawPlayer() {
         //render player
@@ -260,7 +263,7 @@
             //deactivate player controls
             PLAYER_CONTROLS_ON = false;
             //when player falls of screen stop game
-            if (player.y - player.height > c.height) GAME_PLAYING = false;
+            if (player.y - player.height > canvas.height) gameOver();
         }
     }
 
@@ -273,7 +276,7 @@
         for (var i = 0; i < ENEMY_NUMBER; i++) {
             var yOffset = randomIntFromInterval(MIN_YOFFSET, MAX_YOFFSET);
             var enemySet = {
-                enemyUp: new Enemy(i, c.height / 2, yOffset),
+                enemyUp: new Enemy(i, canvas.height / 2, yOffset),
                 enemyDown: new Enemy(i, 0, yOffset, false)
             };
             enemies[i] = enemySet;
@@ -283,10 +286,6 @@
     //Instantiate and draw enemies
     function drawEnemies() {
         for (var i = 0; i < enemies.length; i++) {
-            ctx.beginPath();
-            ctx.fillStyle = "red";
-            ctx.fillRect( enemies[i].enemyUp.x, enemies[i].enemyUp.y, 50,50);
-            ctx.fill();
             ctx.drawImage(enemies[i].enemyUp.img, enemies[i].enemyUp.x, enemies[i].enemyUp.y);
             ctx.drawImage(enemies[i].enemyDown.img, enemies[i].enemyDown.x, enemies[i].enemyDown.y);
             enemies[i].enemyUp.move();
@@ -303,17 +302,37 @@
 
     //Register event handlers & kick off the game
     window.onload = function() {
-        c.addEventListener('click', function() {
+        canvas.addEventListener('click', function() {
+            if(!play)
+                    pausePlay();
             if (PLAYER_CONTROLS_ON) {
                 player.jump();
+                
             }
-            if (!GAME_PLAYING) {
+            if (!gameStart) {
                 resetGame();
-                GAME_PLAYING = true;
+                gameStart = true;
                 PLAYER_CONTROLS_ON = true;
             }
         });
-
-        update();
+        window.onkeypress = function(event) {
+            if (event.which == 32) {
+                pausePlay();
+            }
+          }
+          content=document.getElementById("pausePlay");
+          content.addEventListener("click",pausePlay);
+          function pausePlay(){
+            if(play){
+                play=false;
+                content.innerHTML="Play";
+            }
+            else{
+                content.innerHTML="Pause";
+                play=true;
+                animate();
+            }
+        }
+        animate();
     };
 })();

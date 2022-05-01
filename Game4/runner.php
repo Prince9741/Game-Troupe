@@ -68,7 +68,7 @@ if(!$log)
   window.addEventListener('load', function () {
     let score;
     let life, gameStart;
-    let lastTime,obsticleSpeed,next,obsticleDistance;
+    let lastTime,obsticleSpeed,next,obsticleDist;
     //canvas setup
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
@@ -83,7 +83,7 @@ if(!$log)
       life = 5;
       lastTime=0;
       obsticleSpeed = 10;
-      obsticleDistance=10;
+      obsticleDist=30;
       next = 0;
     }
     gameValueSet();
@@ -165,6 +165,8 @@ if(!$log)
         this.x = game.width - this.width;
         this.y = game.height - this.height - game.groundMargin;
         this.counted = false;
+        this.lifeGone = document.createElement('audio');
+        this.lifeGone.src = 'bark.mp3';
       }
       update() {
         this.x = this.x - obsticleSpeed;
@@ -184,8 +186,7 @@ if(!$log)
     function handleObsticle() {
       if (!next) {
         obsticleArray.push(new Obsticle);
-        next = parseInt(Math.random() * obsticleDistance + game.player.width/2);
-        console.log(next);
+        next = parseInt(Math.random()*obsticleDist+Math.random()*obsticleDist+Math.random()*obsticleDist+10);
       }
       else next--;
       for (var i = 0; i < obsticleArray.length; i++) {
@@ -196,9 +197,9 @@ if(!$log)
         if (obsticleArray[i].x + obsticleArray[i].width < 0) {
           obsticleArray.splice(i, 1);
           score++;
-          if(!(score%10)) {
+          if(!(score%5)) {
             obsticleSpeed++;
-            obsticleDistance+=1;
+            obsticleDist+=1;
           }
           console.log("destroy by wall");
           i--;
@@ -209,6 +210,7 @@ if(!$log)
           game.player.y + game.player.height > obsticleArray[i].y) {
           if (!obsticleArray[i].counted){
             obsticleArray[i].counted = true;
+            obsticleArray[i].lifeGone.play();
             obsticleArray.splice(i, 1);
             life--;
             console.log("destroy by dog");

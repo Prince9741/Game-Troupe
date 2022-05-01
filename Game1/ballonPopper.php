@@ -150,6 +150,7 @@ const star = new Player();
 
 //ballons
 const ballonsArray = [];
+
 class Ballon {
     constructor(imgValue) {
         this.x = Math.random() * canvas.width;
@@ -162,6 +163,8 @@ class Ballon {
         this.distance;
         this.counted = false;
         this.imgValue = imgValue+".png";
+        this.popSound=document.createElement('audio');
+        this.popSound.src = 'pop.mp3';
         this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2';
     }
     update() {
@@ -216,8 +219,7 @@ function ballonBlast(){
            blastArray.splice(i, 1);
     }
 }
-const ballonPop1 = document.createElement('audio');
-ballonPop1.src = 'pop.mp3';
+
 const ballonImage = new Image();
 function handleBallons() {
     if (!(gameFrame % difficulty)) {//difficulty
@@ -235,8 +237,7 @@ function handleBallons() {
         }
         else if (ballonsArray[i].distance < ballonsArray[i].radius + star.radius) {
             if (!ballonsArray[i].counted) {
-                ballonPop1.pause();
-                ballonPop1.play();
+                ballonsArray[i].popSound.play();
                 score++;
                 if(!(score%5) && difficulty>40)
                     difficulty--;
