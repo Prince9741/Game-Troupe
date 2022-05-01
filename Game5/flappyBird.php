@@ -53,7 +53,7 @@ if(!$log)
         <div><a href="../index.php" class="button">Back</a></div>
         <!--go to highScore page -->
         <div class="name"><?php echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
-        <div class="button" id="pausePlay" onclick="pausePlay()">Pause</div><!-- go to signup page -->
+        <div class="button" id="pausePlay" onclick="pausePlay()">Pause/Play</div><!-- go to signup page -->
     </footer>
 </body>
 </html>

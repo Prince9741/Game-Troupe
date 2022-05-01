@@ -57,7 +57,7 @@ if(!$log)
       <div><a href="../index.php" class="button">Back</a></div>
       <!--go to highScore page -->
       <div class="name"><?php echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
-      <div class="button" id="pausePlay" onclick="pausePlay()">Pause</div><!-- go to signup page -->
+      <div class="button" id="pausePlayValue">Pause/Play</div><!-- go to signup page -->
   </footer>
 </body>
 </html>
@@ -106,15 +106,12 @@ if(!$log)
       ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     }
 
-    pausePlay
+    pausePlayValue.addEventListener("click",pausePlay);
+    
     function pausePlay() {
-      var pausePlayValue = document.getElementById("pausePlay");
-      if (gameStart) {
+      if (gameStart) 
         gameStart = false;
-        pausePlayValue.innerHTML = "Play";
-      }
       else {
-        pausePlayValue.innerHTML = "Pause";
         gameStart = true;
         animate(0);
       }

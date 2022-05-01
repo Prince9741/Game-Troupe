@@ -325,10 +325,8 @@
           function pausePlay(){
             if(play){
                 play=false;
-                content.innerHTML="Play";
             }
             else{
-                content.innerHTML="Pause";
                 play=true;
                 animate();
             }
