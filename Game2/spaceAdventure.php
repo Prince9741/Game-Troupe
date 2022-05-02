@@ -33,7 +33,7 @@ if(!$log)
         background-repeat: no-repeat;
         background-position: center;
         background-attachment: fixed;
-        cursor:grab;
+        cursor:none;
     }
     </style>
 </head>
@@ -52,7 +52,7 @@ if(!$log)
         <div><a href="../index.php" class="button">Back</a></div>
         <!--go to highScore page -->
         <div class="name"><?php echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
-        <div class="button" id="pausePlay" onclick="pausePlay()">Pause</div><!-- go to signup page -->
+        <div class="button" id="pausePlay" onclick="pausePlay()">Pause/Play</div><!-- go to signup page -->
     </footer>
 </body>
 </html>
@@ -145,14 +145,17 @@ function handleBackground() {
 } 
 //asteroids
 const asteroidsArray = [];
-class Bubble {
-    constructor(imgValue) {
+const relation={0:"friend",1:"enemy"}
+class Asteroid {
+    constructor(imgValue,relation) {
         this.x = Math.random() * canvas.width;
         this.radius = Math.random() * 10 + 20;
         this.y = 0 - this.radius;
         this.speed = Math.random() * 5 + asteroidSpeed;
         this.counted = false;
         this.imgValue = imgValue;
+        this.popSound=document.createElement('audio');
+        this.popSound.src =relation?'collect.mp3':'blast.mp3';
     }
     update() {
         this.y += this.speed;
@@ -164,16 +167,15 @@ class Bubble {
         ctx.drawImage(asteroidImage, this.x-this.radius, this.y-this.radius, this.radius * 2, this.radius * 2);
     }
 }
-const lifeGone = document.createElement('audio');
-lifeGone.src = 'blast.mp3';
-const asteroidImage = new Image();
 
+const asteroidImage = new Image();
+const allAsteroid=4;
 function handleAsteroids() {
     if (!(gameFrame % difficulty)) {//difficulty
-        asteroidsArray.push(new Bubble(asteroidColor));
-        asteroidColor %=3;
+        rel=asteroidColor==allAsteroid?1:0;
+        asteroidsArray.push(new Asteroid(asteroidColor,rel));
+        asteroidColor %=allAsteroid;
         asteroidColor++;
-        console.log(asteroidColor);
     }
     for (let i = 0; i < asteroidsArray.length; i++) {
         if (asteroidsArray[i].y > canvas.height + asteroidsArray[i].radius * 2) {
@@ -183,10 +185,11 @@ function handleAsteroids() {
         else if (RectCircleColliding(Ship,asteroidsArray[i])) {//check distance between circle and rocket
             if (!asteroidsArray[i].counted) {
                 asteroidsArray[i].counted = true;
-                if(asteroidsArray[i].imgValue==3)score++;
-                else {life--;lifeGone.play();}
+                if(asteroidsArray[i].imgValue==allAsteroid)score++;
+                else life--;
+                asteroidsArray[i].popSound.play();
                 asteroidsArray.splice(i, 1);
-                if(!(score%5) && difficulty>45 || !(score%10) && difficulty>40) difficulty--;
+                if(!(score%3) && difficulty>45 || !(score%7) && difficulty>40) difficulty--;
                 if(!(score%5)) asteroidSpeed++;
                 if(life<3) difficulty+=3;
             }
@@ -215,13 +218,9 @@ function RectCircleColliding(rect,circle){
 
 //pausePlay
 function pausePlay(){
-    content=document.getElementById("pausePlay");
-    if(gameStart){
+    if(gameStart)
         gameStart=false;
-        content.innerHTML="Play";
-    }
     else{
-        content.innerHTML="Pause";
         gameStart=true;
         animate();
     }
