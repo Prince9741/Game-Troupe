@@ -12,8 +12,13 @@
 <body>
     <header>
         <nav class="flex" id="navbar">
-            <div class=""><a href="#"><img src="../images/logo.png"></a></div><!--go to highScore page -->
-            <div id="title"><a href="#">Game-Troupe</a></div>
+            <span class="flex">
+                <!--go to highScore page -->    
+                <div id="game"><a href="#">Game</a></div>
+                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
+                <div id="troupe"><a href="#">Troupe</a></div>
+            </span>
+            <div id="title"><a href="#">Sign Up</a></div>
         </nav>
     </header>
     <div class="form flex">
@@ -49,7 +54,7 @@
     </div>
     <footer class="flex" id="footer">
         <div><a href="../highScore/highScorePage.php" class="button">Scores</a></div><!--go to highScore page -->
-        <div><a href="logIn.php" class="button">Play</a></div><!-- go to login up page -->
+        <div><a href="logIn.php" class="button">Login</a></div><!-- go to login up page -->
     </footer>
 </body>
 </html>

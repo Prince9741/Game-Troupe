@@ -1,4 +1,7 @@
 (function() {
+    const gameId=5;
+    loadDoc('../instructions.php?gameId='+gameId,'instructions');
+
     //Get canvas and context
     const canvas   = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
@@ -246,7 +249,7 @@
     // }
     function gameOver(){//gameOver//////////////
         gameStart=false;
-        var url="../highScore/scoreSaving.php?score="+scoreCounter.getScore()+"&gameId="+5;
+        var url="../highScore/scoreSaving.php?score="+scoreCounter.getScore()+"&gameId="+gameId;
         sendData(url)
     }
     //Instantiate and draw player
@@ -301,6 +304,7 @@
     }
 
     //Register event handlers & kick off the game
+    var instruct=false;
     window.onload = function() {
         canvas.addEventListener('click', function() {
             if(!play)
@@ -322,15 +326,33 @@
           }
           content=document.getElementById("pausePlay");
           content.addEventListener("click",pausePlay);
+         
           function pausePlay(){
             if(play){
                 play=false;
             }
-            else{
+            else if(!instruct){
                 play=true;
                 animate();
             }
         }
         animate();
     };
+    let temp,temp2,temp2Val=true,temp3,temp3Val="Game";
+    instructionsButton.addEventListener("click",()=>{
+        if(!gameStart && play){
+        temp=canvas1.style.display;
+        canvas1.style.display=instructions.style.display;
+        instructions.style.display=temp;
+        temp2=instruct;
+        instruct=temp2Val;
+        temp2Val=temp2;
+        temp3=instructionsButton.innerHTML;
+        instructionsButton.innerHTML=temp3Val;
+        temp3Val=temp3;
+    }
+        else{
+            alert("Can't read instructions, While play");
+        }
+        })
 })();

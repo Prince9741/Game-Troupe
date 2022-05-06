@@ -1,11 +1,19 @@
+<?php
+require "../db.php";
+$result=$Scoring->query("SELECT `GameName` from Game ORDER BY `GameId`");
+$gameName=array();
+if ($result && $result->num_rows > 0)
+        while($row = $result->fetch_assoc())
+            array_push($gameName,$row['GameName']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Game-Troupe Highscore</title>
     <link rel="icon" href="../images/logo.png">
     <link rel="stylesheet" href="../head-foot.css">
     <script src="../allFileJs.js"></script>
@@ -92,20 +100,23 @@
 <body>
     <header>
         <nav class="flex" id="navbar">
-            <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-            <!--go to highScore page -->
-            
-            <div id="title"><a href="#">Game-Troupe</a></div>
+            <span class="flex">
+                <!--go to highScore page -->    
+                <div id="game"><a href="#">Game</a></div>
+                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
+                <div id="troupe"><a href="#">Troupe</a></div>
+            </span>
+            <div id="title"><a href="#">High Scores</a></div>
         </nav>
     </header>
     <div class="container flex">
         <div id="control">
-            <div id="game1" onclick="currentGame(0,1)" ondblclick="playGame(1)"><img src="../images/Game1.png" alt="game"></div>
-            <div id="game2" onclick="currentGame(1,2)" ondblclick="playGame(2)"><img class="active" src="../images/Game2.png" alt="game"></div>
-            <div id="game3" onclick="currentGame(2,3)" ondblclick="playGame(3)"><img src="../images/Game3.png" alt="game"></div>
-            <div id="game4" onclick="currentGame(3,4)" ondblclick="playGame(4)"><img src="../images/Game4.png" alt="game"></div>
+            <div id="game1" onclick="currentGame(0,1,'<?php echo $gameName[0];?>')" ondblclick="playGame(1)"><img src="../images/Game1.png" alt="game"></div>
+            <div id="game2" onclick="currentGame(1,2,'<?php echo $gameName[1];?>')" ondblclick="playGame(2)"><img class="active" src="../images/Game2.png" alt="game"></div>
+            <div id="game3" onclick="currentGame(2,3,'<?php echo $gameName[2];?>')" ondblclick="playGame(3)"><img src="../images/Game3.png" alt="game"></div>
+            <div id="game4" onclick="currentGame(3,4,'<?php echo $gameName[3];?>')" ondblclick="playGame(4)"><img src="../images/Game4.png" alt="game"></div>
             <div class="data">
-                <table><div class="heading">High Scores</div>
+                <table><div class="heading" id="heading"><?php echo $gameName[1];?></div>
                     <thead>
                         <tr>
                             <td>Name</td>
@@ -118,7 +129,7 @@
                     </tbody>
                 </table>
             </div>
-            <div id="game5" onclick="currentGame(5,5)" ondblclick="playGame(5)"><img src="../images/Game5.png" alt="game"></div>
+            <div id="game5" onclick="currentGame(5,5,'<?php echo $gameName[4];?>')" ondblclick="playGame(5)"><img src="../images/Game5.png" alt="game"></div>
         </div>
     </div>
     <footer class="flex" id="footer">
@@ -132,12 +143,14 @@
 <script>
     var active=1;
     var img=document.querySelector("#control").children;
-    function currentGame(nextLoc,gameId){//this function change the next data or selection
+    function currentGame(nextLoc,gameId,gameName){//this function change the next data or selection
+        dataContent.innerHTML="<tr><td>Loading...</td><td>Loading...</td><td>Loading...</td></tr>";
         url = "highScore.php?gameId=" + gameId;
         loadDoc(url, "dataContent");
         console.log("Data Update Game no."+gameId);
         img[active].firstChild.classList.remove("active");
         img[nextLoc].firstChild.classList.add("active");
+        heading.innerHTML=gameName
         active=nextLoc;
     }
     gameList={1:"ballonPopper.php",2:"spaceAdventure.php",3:"diamondPuzzle.php",4:"runner.php",5:"flappyBird.php"};
@@ -147,4 +160,3 @@
         window.location=url;
     }
 </script>
-</script> 

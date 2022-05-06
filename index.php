@@ -17,7 +17,7 @@ if(!$log)
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>highScore</title>
+        <title>Game-Troupe</title>
         <link rel="icon" href="images/logo.png">
         <link rel="stylesheet" href="head-foot.css">
         <script src="allFileJs.js"></script>
@@ -64,10 +64,15 @@ if(!$log)
         </style>
 </head>
 <body>
-<header>
+    <header>
         <nav class="flex" id="navbar">
-            <div class=""><a href="#"><img src="images/logo.png"></a></div><!--go to highScore page -->
-            <div id="title"><a href="#">Game-Troupe</a></div>
+            <span class="flex">
+                <!--go to highScore page -->    
+                <div id="game"><a href="#">Game</a></div>
+                <div class=""><a href="#"><img src="images/logo.png"></a></div>
+                <div id="troupe"><a href="#">Troupe</a></div>
+            </span>
+            <div id="title"><a href="#">Welcome <?php echo $_SESSION['userName'];?></a></div>
         </nav>
     </header>
     <div class="container flex">
@@ -99,8 +104,8 @@ if(!$log)
         </div>
     </div>
     <footer class="flex" id="footer">
-    <div><a href="highScore/highScorePage.php" class="button">Scores</a></div><!--go to highScore page -->    
-    <div class="name"><?php echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
+    <div><a href="highScore/highScorePage.php" class="button">Scores</a></div><!--go to highScore page -->
+    <div><a href="profile/profileUpdate.php" class="button">Edit Profile</a></div><!-- go to login up page -->
     <div><a href="log/logOut.php" class="button">Exit</a></div><!-- go to login up page -->
     </footer>
 </body>

@@ -14,23 +14,26 @@ else
     header("location:signUp.php");
 
 function runQuary($conn,$sql){//to ran our query
-    global $userName,$error;
+    global $userName,$error,$pwd;
     $result=$conn->query("SELECT * FROM `Players` WHERE `userName`='$userName'");//find the user data
     if($result->num_rows==1)
     {
         $_SESSION['msg']='<a href="logIn.php" class="msg"><div>'.$userName.': Already exist</div></a>';
+        $_SESSION['userNameLog']="value='$userName'";
         $error=true;
     }
     else{
         $result= $conn->query($sql);
-        $_SESSION['msg']='<div class="msg msgSuccess">'.$userName.': Successful Registered</div>';
+        $error=false;
+        $_SESSION['msg']='<label for="submit" ><div class="msg msgSuccess">'.$userName.': Successful Registered</div></label>';
+        $_SESSION['userNameLog']="value='$userName'";
+        $_SESSION['pwd']="value='$pwd'";
     }
 }
 
 function add($conn){//inserting data function   
     global $userName,$gen,$pwd,$cPwd,$error;
     if($pwd!=$cPwd){//insert if password match
-        
         $_SESSION['msg']='<div class="msg">Password did not match</div>';
         $error=true;
     }
@@ -57,6 +60,4 @@ switch($control){//which function has to be execute
     default:
         header("location:signUp.php");
 }
-
-
 ?>

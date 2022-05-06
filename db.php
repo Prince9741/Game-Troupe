@@ -1,5 +1,5 @@
 <?php
-//$host="sql210.epizy.com";$userName="epiz_31223356";$password="vePANMZhasiG";$db="epiz_31223356_gameTroupe";
+//$host="sql309.epizy.com";$userName="epiz_31586640";$password="7x2YhhXFESAXPdn";$db="epiz_31586640_gameTroupe";
 $host="localhost";$userName="root";$password="";$db="scoring";
 $Scoring=new mysqli($host,$userName,$password,$db);
 if($Scoring->connect_error)

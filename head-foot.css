@@ -14,7 +14,7 @@ body{
     background-attachment: fixed;
     background-color: var(--bColor);
     font-size: 10px;
-    font-family: cursive;
+    font-family: 'comic sans ms';
 }
 .flex{
     display:flex;
@@ -40,15 +40,15 @@ header{
 #title{
     margin-right:5% ;
 }
-#title a{
-    font-size: 4em;
+#title a,#game a,#troupe a{
+    font-size: 3em;
     text-decoration: none;
     color:var(--tColor);
 }
 #footer{
     position: fixed;
     bottom:0px;
-    height: 70px;
+    height: 60px;
     width:100%;
     background-color:rgba(0, 0, 0, 0.664);
     border-top:2px solid var(--tColor);
@@ -59,15 +59,12 @@ header{
     border:2px solid var(--tColor);
     padding:5px 10px;
     margin: 10px;
-    font-size:20px;
+    font-size:2em;
     text-decoration: none;
     color:var(--tColor);
     transition: 0.3s ease-in-out;
 }
 .button:hover{
-
-    padding:5px 10px;
-    font-size:20px;
     background: var(--tColor);
     color: black;
     border:2px solid var(--bColor);
@@ -78,4 +75,26 @@ header{
     margin: 10px;
     font-size:20px;
     color:var(--tColor);
+}
+
+@media (max-width:700px){
+    #title a,#game a,#troupe a{
+    font-size: 2em;
+    text-decoration: none;
+    color:var(--tColor);
+}
+.button{
+    font-size:1.7em;
+}
+}
+
+@media (max-width:470px){
+    #title a,#game a,#troupe a{
+    font-size: 1.7em;
+    text-decoration: none;
+    color:var(--tColor);
+}
+.button{
+    font-size:1.5em;
+}
 }

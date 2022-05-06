@@ -10,7 +10,7 @@ if(!$log)
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diamond Puzzle</title>
+    <title>Diamond Puzzle-<?php echo $_SESSION['userName'];?></title>
     <link rel="icon" href="../images/logo.png">
     <link rel="stylesheet" href="../head-foot.css">
     <script src="../allFileJs.js"></script>
@@ -59,9 +59,16 @@ if(!$log)
             font-size: 4em;
             color: var(--tColor);
         }
+        #instructions{
+            position:absolute;
+            border: 2px solid white;
+            color:white;
+            font-size:3em;
+            width:80%;
+            top:15%;
+        }
         @media (max-width:400px){
         .box {
-            
             height: 90px;
             width: 90px; 
         }
@@ -75,13 +82,17 @@ if(!$log)
 <body>
     <header>
         <nav class="flex" id="navbar">
-            <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-            <!--go to highScore page -->
-            <div id="title"><a href="#">Game-Troupe</a></div>
+            <span class="flex">
+                <!--go to highScore page -->    
+                <div id="game"><a href="#">Game</a></div>
+                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
+                <div id="troupe"><a href="#">Troupe</a></div>
+            </span>
+            <div id="title"><a href="#">Diamond Puzzle</a></div>
         </nav>
     </header>
     <div class="flex">
-        <div class="container game3">
+        <div class="container game3" id="canvas1" style="display:flex">
             <div id="winner" class="winner">Create these white diamonds</div>
             <div id="diamondBox">
                 <div class="box box0"></div>
@@ -91,17 +102,20 @@ if(!$log)
             </div>
             <div id="score" class="">Move: 0</div>
         </div>
+        <div id="instructions" style="display:none"></div>
     </div>
     <footer class="flex" id="footer">
         <div><a href="../index.php" class="button">Back</a></div>
         <!--go to highScore page -->
-        <div class="name"><?php echo "Welcome ".$_SESSION['userName'];?></div><!-- go to login up page -->
-        <div class="button" id="pausePlay" onclick="reset()">Reset</div><!-- go to signup page -->
+        <div class="button" id="instructionsButton">Instructions</div>
+       <div class="button" id="pausePlay" onclick="reset()">Reset</div><!-- go to signup page -->
     </footer>
 </body>
 
 </html>
 <script>
+    var gameId=3;
+    loadDoc('../instructions.php?gameId='+gameId,'instructions');
     var score=0,gameStart=true;
     var defaultMsg=document.getElementById("winner").innerHTML;
     let i,a = document.getElementById("diamondBox").children;
@@ -158,10 +172,25 @@ function reset(){
         gameStart=true;
     }
 }
+
+window.onkeypress = function(event) {
+  if (event.which == 32) {
+    reset(); 
+  }
+}
 function gameOver(){//gameOver//////////////
-    var url="../highScore/scoreSaving.php?score="+score+"&gameId="+3;
+    var url="../highScore/scoreSaving.php?score="+score+"&gameId="+gameId;
     sendData(url)
     gameStart=false;
 }
+let temp,temp3,temp3Val="Game";
+instructionsButton.addEventListener("click",()=>{
+    temp=canvas1.style.display;
+    canvas1.style.display=instructions.style.display;
+    instructions.style.display=temp;
+    temp3=instructionsButton.innerHTML;
+    instructionsButton.innerHTML=temp3Val;
+    temp3Val=temp3
+    })
 
 </script>
