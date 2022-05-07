@@ -5,8 +5,8 @@
     //Get canvas and context
     const canvas   = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
-    canvas.width = screen.width-30;
-    canvas.height = screen.height-280;
+    canvas.width = window.innerWidth-30;
+    canvas.height = window.innerHeight-150;
     ctx.font = '30px Georgia';
     //Load assets
     // var bgImg = loadImage('background1.jpg', 1200, 500);
@@ -356,3 +356,6 @@
         }
         })
 })();
+
+
+

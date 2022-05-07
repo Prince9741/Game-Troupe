@@ -58,8 +58,8 @@ let ballonColor
 //canvas setup
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-canvas.width = screen.width-30;
-canvas.height = screen.height-280;
+canvas.width = window.innerWidth-30;
+canvas.height = window.innerHeight-150;
 ctx.font = '30px Georgia';
 ctx.fillStyle='black';
 ctx.fillText("Click to Play",canvas.width/2-100,canvas.height/2+35);

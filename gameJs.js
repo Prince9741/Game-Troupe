@@ -18,6 +18,6 @@ instructionsButton.addEventListener("click",()=>{
 
 window.addEventListener('resize', function () {
     canvasPosition = canvas.getBoundingClientRect();
-    canvas.width = screen.width-30;
-    canvas.height = screen.height-280;
+    canvas.width = window.innerWidth-30;
+    canvas.height = window.innerHeight-150;
 })
