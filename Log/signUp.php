@@ -22,9 +22,9 @@
         </nav>
     </header>
     <div class="form flex">
-        <form action="signUpControl.php" method="post" class="flex" id="inputForm"> <!-- input user information -->
+        <form action="signUpControl.php" onSubmit = "return validateUserName(this)" method="post" class="flex" id="inputForm"> <!-- input user information -->
                 <label for="userName">User Name:</label>
-                <input id="userName" name="userName" placeholder="Enter user name"  maxlength="20" autocomplete="off" autofocus required>
+                <input id="userName" name="userName" placeholder="Enter user name" autocomplete="off" autofocus required>
                 
             <div>
                 <label for="male">Male:</label>
@@ -41,7 +41,7 @@
                 <input id="pwd" name="pwd" type="password" placeholder="Enter Password"  maxlength="20" autocomplete="off" required>
                 <label for="cPwd">Confirm-Password:</label>
                 <input id="cPwd" name="cPwd" type="password" placeholder="Confirm Password"  maxlength="20" autocomplete="off" required>
-                <input type="submit" value="Start">
+                <input type="submit" value="Register">
             
         </form>
         <?php
@@ -58,3 +58,18 @@
     </footer>
 </body>
 </html>
+<script>
+     // Function to check Whether username valid or not
+    function validateUserName(form) {
+        userName = form.userName.value;
+        if(userName.length>20){
+            alert("UserName Should be less than 20 letters");
+                return false; 
+        }
+        if(!/^[0-9a-zA-Z_.-]+$/.test(userName)){
+            alert("Space or Special character not allowed in UserName");
+            return false;
+        }
+        return true;
+    }
+    </script>

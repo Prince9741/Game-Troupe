@@ -11,7 +11,7 @@ body{
 form{
     border:5px solid var(--tColor);
     border-radius: 20px;
-    width: 40vw;
+    width: 50vw;
     padding: 20px;
 }
 

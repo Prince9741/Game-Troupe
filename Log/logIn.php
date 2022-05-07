@@ -45,7 +45,7 @@ if($log)
             unset($_SESSION['pwd']);
         }
         ?>  placeholder="Enter Password" autocomplete="off" required>
-            <input type="submit" value="Start" id="submit">
+            <input type="submit" value="Play" id="submit">
         </form>
         <?php
         if(isset($_SESSION['msg'])){
