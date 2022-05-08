@@ -61,13 +61,13 @@ if ($result && $result->num_rows > 0)
         font-size: 1.5em;
     }
     .others td{
-        color:yellow;
+        color:#e8dc39;
     }
     .male td{
-        color:skyBlue;
+        color:skyblue;
     }
     .female td{
-        color:pink;
+        color:rgb(252 112 135);
     }
     @media (max-width:700px){
         #control{

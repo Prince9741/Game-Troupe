@@ -20,10 +20,8 @@ LEFT JOIN `Game` G ON H.`GameId`=G.`GameId`
 WHERE H.`GameId`= $gameId ORDER BY H.`Score` $order");
 if ($result && $result->num_rows > 0)
     for($i=1;$row = $result->fetch_assoc();$i++){//tell the user gender
-        if($player==$row["UserName"]){
+        if($player==$row["UserName"])
             $row["UserName"]="You";
-            $row["rowColor"]="";
-        }
         echo"<tr ondblclick='specificEntry(this)' class='".$row["rowColor"]."'>
         <td>".$row["UserName"]."</td>
         <td>".$row["Score"]."</td>

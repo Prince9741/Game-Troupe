@@ -15,11 +15,6 @@ if(!$log)
     <link rel="stylesheet" href="../head-foot.css">
     <link rel="stylesheet" href="../allGame.css">
     <script src="../allFileJs.js"></script>
-    <style>
-        #canvas1 {
-        background-image:url(background1.png);
-    }
-    </style>
 </head>
 <body>
     <header>

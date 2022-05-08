@@ -30,7 +30,7 @@ if(!$log)
     <div class="form flex">
         <form action="profileUpdateControl.php?control=deleteAccount" method="post" class="flex" id="inputForm"> <!-- input user information -->
                 <label for="pwd"><?php echo $_SESSION['userName'];?>:</label>
-                <label for="pwd">All your highscore will erase</label>
+                <label for="pwd">Your all data and scores will be erased permanently</label>
                 <input id="pwd" name="pwd" type="password" autofocus placeholder="Enter Your Password to confirm" maxlength="20" autocomplete="off" required>
                <input type="submit" value="Delete">
         </form>

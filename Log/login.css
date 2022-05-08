@@ -82,10 +82,16 @@ form{
 input[type="radio"]{
   display: none;
 }
-#others:checked:checked ~ .others,
-#male:checked:checked ~ .male,
-#female:checked:checked ~ .female{
-  background: #0069d9;
+
+#male:checked:checked ~ .male{
+    background: #4270c5;
+}
+  
+  #female:checked:checked ~ .female{
+    background: rgb(252 112 135);
+}
+  #others:checked:checked ~ .others{
+    background: #e8dc39;
 }
 
 .wrapper .option span{
