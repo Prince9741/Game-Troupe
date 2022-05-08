@@ -159,6 +159,7 @@ function pausePlay(){
         this.x = game.width - this.width;
         this.y = game.height - this.height - game.groundMargin;
         this.counted = false;
+        this.crash=false;
         this.lifeGone = document.createElement('audio');
         this.lifeGone.src = 'bark.mp3';
       }
@@ -171,7 +172,8 @@ function pausePlay(){
         ctx.fillRect(this.x, this.y, this.bar, this.height);
         ctx.fillRect( this.x+this.width-this.bar, this.y, this.bar, this.height);
         ctx.fillStyle = "black";
-        ctx.fillRect(this.x, this.y, this.width, this.bar);
+        if(!this.crash)
+          ctx.fillRect(this.x, this.y, this.width, this.bar);
         ctx.fill();
       }
     }
@@ -205,7 +207,7 @@ function pausePlay(){
           if (!obsticleArray[i].counted){
             obsticleArray[i].counted = true;
             obsticleArray[i].lifeGone.play();
-            obsticleArray.splice(i, 1);
+            obsticleArray[i].crash=true;
             life--;
             console.log("destroy by dog");
           }
