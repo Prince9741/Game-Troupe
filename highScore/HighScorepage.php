@@ -1,5 +1,8 @@
 <?php
 require "../db.php";
+session_start();
+$log=isset($_SESSION['loggedin']);
+$back=$log?"background-image:url(../images/back1.png);":"background-image:url(../images/back.png);";
 $result=$Scoring->query("SELECT `GameName` from Game ORDER BY `GameId`");
 $gameName=array();
 if ($result && $result->num_rows > 0)
@@ -97,7 +100,7 @@ if ($result && $result->num_rows > 0)
      </style>
 </head>
 
-<body>
+<body style=<?php echo $back;?>>
     <header>
         <nav class="flex" id="navbar">
             <span class="flex">
@@ -124,9 +127,7 @@ if ($result && $result->num_rows > 0)
                             <td>Date</td>
                         </tr>
                     </thead>
-                    <tbody id="dataContent">
-                        <?php require "highScore.php"?>
-                    </tbody>
+                    <tbody id="dataContent"></tbody>
                 </table>
             </div>
             <div id="game5" onclick="currentGame(5,5,'<?php echo $gameName[4];?>')" ondblclick="playGame(5)"><img src="../images/Game5.png" alt="game"></div>
@@ -143,6 +144,7 @@ if ($result && $result->num_rows > 0)
 <script>
     var active=1;
     var img=document.querySelector("#control").children;
+    loadDoc("highScore.php?gameId=2", "dataContent");
     function currentGame(nextLoc,gameId,gameName){//this function change the next data or selection
         dataContent.innerHTML="<tr><td>Loading...</td><td>Loading...</td><td>Loading...</td></tr>";
         url = "highScore.php?gameId=" + gameId;
