@@ -26,17 +26,24 @@
                 <label for="userName">User Name:</label>
                 <input id="userName" name="userName" placeholder="Enter user name" autocomplete="off" autofocus required>
                 
-            <div>
-                <label for="male">Male:</label>
+                <div class="wrapper">
                 <input type="radio" name="gen" value="0" id="male" checked>
-        
-                <label for="female">Female:</label>
                 <input type="radio" name="gen" value="1" id="female">
-            
-                <label for="others">Others</label>
                 <input type="radio" name="gen" value="2" id="others">
-            </div>
-            
+                    <label for="male" class="option male flex">
+                        <div class="dot"></div>
+                        <span>Male</span>
+                    </label>
+                    <label for="female" class="option female flex">
+                        <div class="dot"></div>
+                        <span>Female</span>
+                    </label>
+                    <label for="others" class="option others flex">
+                        <div class="dot"></div>
+                        <span>Others</span>
+                    </label>
+                </div>
+
                 <label for="pwd">Password:</label>
                 <input id="pwd" name="pwd" type="password" placeholder="Enter Password"  maxlength="20" autocomplete="off" required>
                 <label for="cPwd">Confirm-Password:</label>

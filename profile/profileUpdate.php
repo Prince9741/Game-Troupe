@@ -31,16 +31,23 @@ if(!$log)
         <form action="profileUpdateControl.php?control=profileUpdate" method="post" class="flex" id="inputForm"> <!-- input user information -->
                 <label for="userName">User Name: <?php echo $_SESSION['userName'];?></label>
                 <input id="userName" name="userName" placeholder="Update" value="<?php echo $_SESSION['userName'];?>" maxlength="20" autocomplete="off" autofocus required>
-            <div id="gender">
-                <label for="male">Male:</label>
-                <input type="radio" name="gen" value="0" id="male">
-        
-                <label for="female">Female:</label>
-                <input type="radio" name="gen" value="1" id="female">
-            
-                <label for="others">Others</label>
-                <input type="radio" name="gen" value="2" id="others">
-            </div>
+                <div class="wrapper" id="gender">
+                    <input type="radio" name="gen" value="0" id="male">
+                    <input type="radio" name="gen" value="1" id="female">
+                    <input type="radio" name="gen" value="2" id="others">
+                        <label for="male" class="option male flex">
+                            <div class="dot"></div>
+                            <span>Male</span>
+                        </label>
+                        <label for="female" class="option female flex">
+                            <div class="dot"></div>
+                            <span>Female</span>
+                        </label>
+                        <label for="others" class="option others flex">
+                            <div class="dot"></div>
+                            <span>Others</span>
+                        </label>
+                </div>
                 <input type="hidden" id="genValue" value="<?php echo $_SESSION['gender']?>">
                 <input type="submit" value="Update">
         </form>
