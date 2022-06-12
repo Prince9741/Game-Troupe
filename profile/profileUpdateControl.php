@@ -4,46 +4,73 @@ session_start();
 $control=isset($_GET['control'])?$_GET['control']:NULL;
 $error=false;
 
-if(isset($_POST['userName']) && isset($_POST['gen']))//get all fetch value
+if(isset($_POST['userName']) && isset($_POST['gen']) && isset($_POST['profilePicVal']))//for profile edit
 {
     $userName=$_POST['userName'];
     $gen=$_POST['gen'];
+    $profilePicVal=$_POST['profilePicVal'];
 }
-else if(isset($_POST['pwd']) && isset($_POST['oPwd']) && isset($_POST['cPwd'])){
+else if(isset($_POST['pwd']) && isset($_POST['oPwd']) && isset($_POST['cPwd'])){//for change password
     $oPwd=$_POST['oPwd'];
     $pwd=$_POST['pwd'];
     $cPwd=$_POST['cPwd'];
 }
-else if(isset($_POST['pwd'])){
+else if(isset($_POST['pwd'])){//for delete profile
     $pwd=$_POST['pwd'];
 }
-else
+else 
     header("location:profileUpdate.php");
 
 $userId=$_SESSION['userId'];
 
 function profileUpdate($conn){//inserting data function   
-    global $userName,$gen,$error,$userId;
-    $result=$conn->query("SELECT * FROM `Players` WHERE `userName`='$userName'");//find the user data
-    if($_SESSION['userName']==$userName && $_SESSION['gender']==$gen){
-        $_SESSION['msg']='<div class="msg msgSuccess">No Change</div>';
-        $error=true;
-    }
-    else if($result->num_rows==1 && $_SESSION['userName']!=$userName){
-        $_SESSION['msg']='<a href="#" class="msg"><div>'.$userName.': Already exist</div></a>';
+    global $userName,$gen,$error,$userId,$profilePicVal,$profilePic;
+    if($_SESSION['userName']==$userName && $_SESSION['gender']==$gen && $profilePicVal==0){
+        $_SESSION['msg']='<div class="msg msgSuccess">Nothing change</div>';
         $error=true;
     }
     else{
-        $sql = "UPDATE `Players` SET `UserName` = '$userName', `GenderId` = '$gen' WHERE `UserId`=$userId";
-        $result= $conn->query($sql);
-        if($result){
-            $_SESSION['userName']=$userName;
-            $_SESSION['gender']=$gen;
-            $_SESSION['msg']='<div class="msg msgSuccess">Profile Update</div>';
-            $error=false;
+        $result=$conn->query("SELECT * FROM `Players` WHERE `userName`='$userName'");//find the user data
+        if($result->num_rows==1 && $_SESSION['userName']!=$userName){
+            $_SESSION['msg']='<a href="#" class="msg"><div>'.$userName.': Already exist</div></a>';
+            $error=true;
         }
         else{
-            $_SESSION['msg']='<div class="msg">Something Went Wrong</div>';
+            $sql = "UPDATE `Players` SET `UserName` = '$userName', `GenderId` = '$gen' WHERE `UserId`=$userId";
+            $uploaded=false;
+            if($profilePicVal){
+                $target_dir = "../profilePic/";
+                $old_name = basename($_FILES["profilePic"]["name"]);
+                $imageFileType = strtolower(pathinfo($old_name,PATHINFO_EXTENSION));
+                $allowed_exs = array("jpg", "jpeg", "png"); 
+                if (in_array($imageFileType, $allowed_exs)) {
+                    $pic_new_name=$userId.".".$imageFileType;
+                    $target=$target_dir.$pic_new_name;
+                    move_uploaded_file($_FILES["profilePic"]["tmp_name"], $target);
+                    $sql = "UPDATE `Players` SET `UserName` = '$userName', `GenderId` = '$gen',`ProfilePic`='$pic_new_name' WHERE `UserId`=$userId";
+                    $uploaded=true;
+                }
+            }
+            $result= $conn->query($sql);
+            if($result){
+                $_SESSION['userName']=$userName;
+                $_SESSION['gender']=$gen;
+                if($profilePicVal){
+                    if($uploaded){
+                       $_SESSION['profilePic']=$target;
+                        $_SESSION['msg']='<div class="msg msgSuccess">Profile and pic Updated</div>';
+                    }
+                    else{
+                        $_SESSION['msg']='<div class="msg msgSuccess">Invalid Data Entered</div>';
+                    }
+                }
+                else
+                    $_SESSION['msg']='<div class="msg msgSuccess">Profile Update</div>';
+                $error=false;
+            }
+            else{
+                $_SESSION['msg']='<div class="msg">Something Went Wrong</div>';
+            }
         }
     }
     header("location:profileUpdate.php");
@@ -112,6 +139,6 @@ switch($control){//which function has to be execute
         deleteAccount($Scoring);
         break;  
     default:
-        header("location:profileUpdate.php");
+        //header("location:profileUpdate.php");
 }
 ?>

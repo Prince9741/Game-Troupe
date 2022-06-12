@@ -13,6 +13,7 @@ if(isset($_POST['userName']) && isset($_POST['pwd'])){
                 $_SESSION['userId']=$rows['UserId'];
                 $_SESSION['userName']=$rows['UserName'];
                 $_SESSION['gender']=$rows['GenderId'];//take gender value from database
+                $_SESSION['profilePic']="../profilePic/".$rows['ProfilePic'];
                 header("location:../index.php");//send to the main page
             }
             else

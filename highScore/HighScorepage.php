@@ -27,75 +27,105 @@ if ($result && $result->num_rows > 0)
         width: 100%;
         flex-direction: column;
     }
-    #control{
+
+    #control {
         display: grid;
         text-align: center;
         grid-column-gap: 20px;
-        grid-row-gap:40px;
-        grid-template-columns:repeat(3,auto);
+        grid-row-gap: 40px;
+        grid-template-columns: repeat(3, auto);
     }
-    #control div img{
+
+    #control .game img{
         height: 120px;
         border-radius: 10px;
-        border:3px solid var(--tColor);
+        border: 3px solid var(--tColor);
     }
-    #control div img:hover{
-        outline:3px solid var(--bColor);
+
+    #control .game img:hover {
+        outline: 3px solid var(--bColor);
     }
-    #control div img[class="active"]{
-        box-shadow:0px 0px 15px 5px skyblue;
-        transform:scale(1.1);
+
+    #control .game img[class="active"] {
+        box-shadow: 0px 0px 15px 5px skyblue;
+        transform: scale(1.1);
     }
-    .data{
-        box-shadow:0px 0px 50px 15px black;
+
+    .data {
+        box-shadow: 0px 0px 50px 15px black;
         border-radius: 20px;
         padding: 5px;
     }
-    
-    .data tr,.heading{
+
+    .data tr,
+    .heading {
         color: var(--tColor);
         font-family: cursive;
     }
-    .data td,.heading{
+
+    .data td,
+    .heading {
         text-align: center;
         border-radius: 40%;
         border-bottom: 2.5px solid var(--tColor);
         padding: 3px 10px;
         font-size: 1.5em;
     }
+
+    
     .others td{
-        color:#e8dc39;
+        color: #e8dc39;
     }
-    .male td{
-        color:skyblue;
+    .others img {
+        border: 0px solid #e8dc39;
     }
-    .female td{
-        color:rgb(252 112 135);
+    .male td {
+        color: skyblue;
     }
-    @media (max-width:700px){
-        #control{
-        grid-column-gap: 10px;
-        grid-row-gap:20px;
+    .male img {
+        border: 0px solid skyblue;
+    }
+    .female td {
+        color: var(--female);
+    }
+    .female img {
+        border: 0px solid var(--female);
+    }
+
+    @media (max-width:700px) {
+        #control {
+            grid-column-gap: 10px;
+            grid-row-gap: 20px;
         }
-        #control div img{
+
+        #control .game img {
             height: 80px;
         }
-        .data td{
+
+        .data td {
             padding: 2px 5px;
             font-size: 1.5em;
         }
     }
-    @media (max-width:500px){
-        #control{
-        grid-column-gap: 5px;
-        grid-row-gap:10px;
+
+    @media (max-width:500px) {
+        #control {
+            grid-column-gap: 5px;
+            grid-row-gap: 10px;
         }
-        #control div img{
+
+        #control .game img {
             height: 70px;
         }
-        .data td{
+
+        .data td {
             font-size: 1.2em;
         }
+    }
+    #dataContent img{
+        border-radius:100%;
+        height: 25px;
+        width:25px;
     }
      </style>
 </head>
@@ -114,14 +144,15 @@ if ($result && $result->num_rows > 0)
     </header>
     <div class="container flex">
         <div id="control">
-            <div id="game1" onclick="currentGame(0,1,'<?php echo $gameName[0];?>')" ondblclick="playGame(1)"><img src="../images/Game1.png" alt="game"></div>
-            <div id="game2" onclick="currentGame(1,2,'<?php echo $gameName[1];?>')" ondblclick="playGame(2)"><img class="active" src="../images/Game2.png" alt="game"></div>
-            <div id="game3" onclick="currentGame(2,3,'<?php echo $gameName[2];?>')" ondblclick="playGame(3)"><img src="../images/Game3.png" alt="game"></div>
-            <div id="game4" onclick="currentGame(3,4,'<?php echo $gameName[3];?>')" ondblclick="playGame(4)"><img src="../images/Game4.png" alt="game"></div>
+            <div id="game1" class="game" onclick="currentGame(0,1,'<?php echo $gameName[0];?>')" ondblclick="playGame(1)"><img src="../images/Game1.png" alt="game"></div>
+            <div id="game2" class="game" onclick="currentGame(1,2,'<?php echo $gameName[1];?>')" ondblclick="playGame(2)"><img class="active" src="../images/Game2.png" alt="game"></div>
+            <div id="game3" class="game" onclick="currentGame(2,3,'<?php echo $gameName[2];?>')" ondblclick="playGame(3)"><img src="../images/Game3.png" alt="game"></div>
+            <div id="game4" class="game" onclick="currentGame(3,4,'<?php echo $gameName[3];?>')" ondblclick="playGame(4)"><img src="../images/Game4.png" alt="game"></div>
             <div class="data">
                 <table><div class="heading" id="heading"><?php echo $gameName[1];?></div>
                     <thead>
                         <tr>
+                            <td>Pic</td>
                             <td>Name</td>
                             <td>Score</td>
                             <td>Date</td>
@@ -130,7 +161,7 @@ if ($result && $result->num_rows > 0)
                     <tbody id="dataContent"></tbody>
                 </table>
             </div>
-            <div id="game5" onclick="currentGame(5,5,'<?php echo $gameName[4];?>')" ondblclick="playGame(5)"><img src="../images/Game5.png" alt="game"></div>
+            <div id="game5" class="game" onclick="currentGame(5,5,'<?php echo $gameName[4];?>')" ondblclick="playGame(5)"><img src="../images/Game5.png" alt="game"></div>
         </div>
     </div>
     <footer class="flex" id="footer">

@@ -61,7 +61,6 @@ form{
     justify-content: space-evenly;
     border-radius: 5px;
     padding: 10px 0px;
-    box-shadow: 5px 5px 30px rgb(0 0 0 / 20%);
 }
 .wrapper .option{
   background: #fff;
@@ -84,7 +83,7 @@ input[type="radio"]{
 }
 
 #female:checked:checked ~ .female{
-  background: rgb(252 112 135);
+  background:var(--female);
 }
 #others:checked:checked ~ .others{
   background: #e8dc39;

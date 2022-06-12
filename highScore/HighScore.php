@@ -9,7 +9,7 @@ $result=$Scoring->query("SELECT `ScoreType` from Game where `GameId`=$gameId");
 if($result->num_rows==1)
     $row = $result->fetch_assoc();
 $order=$row["ScoreType"]?"DESC":"ASC";//tell scorring type
-$result=$Scoring->query("SELECT P.`UserName`, H.`Score`,H.`Date`,G.`ScoreType`,
+$result=$Scoring->query("SELECT P.`UserName`,P.`ProfilePic`, H.`Score`,H.`Date`,G.`ScoreType`,
 CASE
 WHEN P.`GenderId`= 0 THEN 'male'
 WHEN P.`GenderId`= 1 THEN 'female'
@@ -23,6 +23,7 @@ if ($result && $result->num_rows > 0)
         if($player==$row["UserName"])
             $row["UserName"]="You";
         echo"<tr ondblclick='specificEntry(this)' class='".$row["rowColor"]."'>
+        <td><img src='../profilePic/".$row["ProfilePic"]."'></td>
         <td>".$row["UserName"]."</td>
         <td>".$row["Score"]."</td>
         <td>".date("d-M-y", strtotime($row["Date"]))."</td>
@@ -31,6 +32,7 @@ if ($result && $result->num_rows > 0)
     }
 else
 echo"<tr>
+    <td><img src='../profilePic/default.png'></td>
     <td>No Record</td>
     <td>No Record</td>
     <td>No Record</td>

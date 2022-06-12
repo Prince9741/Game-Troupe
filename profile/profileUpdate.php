@@ -28,28 +28,30 @@ if(!$log)
         </nav>
     </header>
     <div class="form flex">
-        <form action="profileUpdateControl.php?control=profileUpdate" method="post" class="flex" id="inputForm"> <!-- input user information -->
-                <label for="userName">User Name: <?php echo $_SESSION['userName'];?></label>
-                <input id="userName" name="userName" placeholder="Update" value="<?php echo $_SESSION['userName'];?>" maxlength="20" autocomplete="off" autofocus required>
-                <div class="wrapper" id="gender">
-                    <input type="radio" name="gen" value="0" id="male">
-                    <input type="radio" name="gen" value="1" id="female">
-                    <input type="radio" name="gen" value="2" id="others">
-                        <label for="male" class="option male flex">
-                            <div class="dot"></div>
-                            <span>Male</span>
-                        </label>
-                        <label for="female" class="option female flex">
-                            <div class="dot"></div>
-                            <span>Female</span>
-                        </label>
-                        <label for="others" class="option others flex">
-                            <div class="dot"></div>
-                            <span>Others</span>
-                        </label>
-                </div>
-                <input type="hidden" id="genValue" value="<?php echo $_SESSION['gender']?>">
-                <input type="submit" value="Update">
+        <form action="profileUpdateControl.php?control=profileUpdate" method="post" class="flex" id="inputForm" enctype="multipart/form-data"> <!-- input user information -->
+            <label for="pic">Profile Pic</label>
+            <label for="profilePic"><img id="pic" style="border:2px solid white;border-radius:100%;" src="<?php echo $_SESSION['profilePic'];?>" height="40" width="40"></label>
+            <input id="profilePic" name="profilePic" type="file" onchange="changeHiddenVal()" style="display:none"  accept=".jpg, .jpeg, .png">
+            <input id="profilePicVal" name="profilePicVal" value="0" type="hidden">
+            <label for="userName">User Name: <?php echo $_SESSION['userName'];?></label>
+            <input id="userName" name="userName" placeholder="Update" value="<?php echo $_SESSION['userName'];?>" maxlength="20" autocomplete="off" autofocus required>
+            <div class="wrapper" id="gender">
+                <input type="radio" name="gen" value="0" id="male">
+                <input type="radio" name="gen" value="1" id="female">
+                
+                <input type="radio" name="gen" value="2" id="others">
+                <label for="male" class="option male flex">
+                    <span>Male</span>
+                </label>
+                <label for="female" class="option female flex">
+                    <span>Female</span>
+                </label>
+                <label for="others" class="option others flex">
+                    <span>Others</span>
+                </label>
+            </div>
+            <input type="hidden" id="genValue" value="<?php echo $_SESSION['gender']?>">
+            <input type="submit" value="Update">
         </form>
         <?php
         if(isset($_SESSION['msg'])){
@@ -73,5 +75,22 @@ var genValue=document.getElementById("genValue").value;
 for(var i=0;i<gender.length;i++){
 if(gender[i].value==genValue)
 gender[i].checked=true;
+}
+    form = document.querySelector("#profilePic");
+    form.addEventListener("change", changeImage);
+    function changeImage(input) {
+        image =  document.getElementById("pic");
+        input=input.target;
+        if (input.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = function (e) {
+                image.src = e.target.result;
+            }
+        }
+    }
+
+function changeHiddenVal(){
+    profilePicVal.value=1;
 }
 </script>

@@ -1,6 +1,7 @@
 :root{
     --bColor:skyblue;
     --tColor:white;
+    --female:rgb(218 170 221);
 }
 *{
     margin:0px;
