@@ -2,7 +2,7 @@
 session_start();
 $log=isset($_SESSION['loggedin']);
 if($log)
-    header("location:../index.php");
+    header("location:../");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,17 +17,7 @@ if($log)
 </head>
 
 <body>
-    <header>
-        <nav class="flex" id="navbar">
-            <span class="flex">
-                <!--go to highScore page -->    
-                <div id="game"><a href="#">Game</a></div>
-                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-                <div id="troupe"><a href="#">Troupe</a></div>
-            </span>
-            <div id="title"><a href="#">Login</a></div>
-        </nav>
-    </header>
+<?php $page="Login"; require "../header.php";?>
     <div class="form flex">
         <form action="logInControl.php" method="post" class="flex" id="inputForm">
             <!-- Input authoriezed user informations -->

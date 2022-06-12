@@ -80,17 +80,7 @@ if(!$log)
 </head>
 
 <body>
-    <header>
-        <nav class="flex" id="navbar">
-            <span class="flex">
-                <!--go to highScore page -->    
-                <div id="game"><a href="#">Game</a></div>
-                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-                <div id="troupe"><a href="#">Troupe</a></div>
-            </span>
-            <div id="title"><a href="#">Diamond Puzzle</a></div>
-        </nav>
-    </header>
+    <?php $page="Diamond Puzzle"; require "../header.php";?>
     <div class="flex">
         <div class="container game3" id="canvas1" style="display:flex">
             <div id="winner" class="winner">Create these white diamonds</div>
@@ -105,7 +95,7 @@ if(!$log)
         <div id="instructions" style="display:none"></div>
     </div>
     <footer class="flex" id="footer">
-        <div><a href="../index.php" class="button">Back</a></div>
+        <div><a href="../" class="button">Back</a></div>
         <!--go to highScore page -->
         <div class="button" id="instructionsButton">Instructions</div>
        <div class="button" id="pausePlay" onclick="reset()">Reset</div><!-- go to signup page -->

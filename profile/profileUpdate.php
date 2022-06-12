@@ -2,7 +2,8 @@
 session_start();
 $log=isset($_SESSION['loggedin']);
 if(!$log)
-    header("location:../index.php");
+    header("location:../");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,25 +17,14 @@ if(!$log)
     <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-    <header>
-        <nav class="flex" id="navbar">
-            <span class="flex">
-                <!--go to highScore page -->    
-                <div id="game"><a href="#">Game</a></div>
-                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-                <div id="troupe"><a href="#">Troupe</a></div>
-            </span>
-            <div id="title"><a href="#">Profile</a></div>
-        </nav>
-    </header>
+    <?php $page="Profile"; require "../header.php";?>
     <div class="form flex">
         <form action="profileUpdateControl.php?control=profileUpdate" method="post" class="flex" id="inputForm" enctype="multipart/form-data"> <!-- input user information -->
-            <label for="pic">Profile Pic</label>
-            <label for="profilePic"><img id="pic" style="border:2px solid white;border-radius:100%;" src="<?php echo $_SESSION['profilePic'];?>" height="40" width="40"></label>
-            <input id="profilePic" name="profilePic" type="file" onchange="changeHiddenVal()" style="display:none"  accept=".jpg, .jpeg, .png">
-            <input id="profilePicVal" name="profilePicVal" value="0" type="hidden">
-            <label for="userName">User Name: <?php echo $_SESSION['userName'];?></label>
-            <input id="userName" name="userName" placeholder="Update" value="<?php echo $_SESSION['userName'];?>" maxlength="20" autocomplete="off" autofocus required>
+            <div class="flex" id="picContainer">
+                <label for="profilePic"><abbr title="click to change"><img id="pic" src="<?php echo $_SESSION['profilePic'];?>"></abbr></label>
+            </div>
+            <label for="userName">User-Name:</label>
+            <input id="userName" name="userName" placeholder="Enter new username" value="<?php echo $_SESSION['userName'];?>" maxlength="20" autocomplete="off" autofocus required>
             <div class="wrapper" id="gender">
                 <input type="radio" name="gen" value="0" id="male">
                 <input type="radio" name="gen" value="1" id="female">
@@ -51,6 +41,8 @@ if(!$log)
                 </label>
             </div>
             <input type="hidden" id="genValue" value="<?php echo $_SESSION['gender']?>">
+            <input id="profilePic" name="profilePic" type="file" onchange="changeHiddenVal()" style="display:none"  accept=".jpg, .jpeg, .png">
+            <input id="profilePicVal" name="profilePicVal" value="0" type="hidden">
             <input type="submit" value="Update">
         </form>
         <?php
@@ -61,7 +53,7 @@ if(!$log)
         ?>
     </div>
     <footer class="flex" id="footer">
-    <div><a href="../index.php" class="button">Home</a></div><!-- go to login up page -->
+    <div><a href="../" class="button">Home</a></div><!-- go to login up page -->
     <div class='flex'>
     <div><a href="changePassword.php" class="button">Change Password</a></div><!-- go to login up page -->
     <div><a href="profileDelete.php" class="button">Delete Profile</a></div><!-- go to login up page -->

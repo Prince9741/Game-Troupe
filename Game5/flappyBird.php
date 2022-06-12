@@ -17,17 +17,7 @@ if(!$log)
     <script src="../allFileJs.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="flex" id="navbar">
-            <span class="flex">
-                <!--go to highScore page -->    
-                <div id="game"><a href="#">Game</a></div>
-                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-                <div id="troupe"><a href="#">Troupe</a></div>
-            </span>
-            <div id="title"><a href="#">Flappy Bird</a></div>
-        </nav>
-    </header>
+    <?php $page="Flappy Bird"; require "../header.php";?>
     <div id="container" value="canvas">
         <canvas style="display:block" id="canvas1"></canvas>
         <div id="instructions" style="display:none"></div>

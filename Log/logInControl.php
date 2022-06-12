@@ -14,7 +14,7 @@ if(isset($_POST['userName']) && isset($_POST['pwd'])){
                 $_SESSION['userName']=$rows['UserName'];
                 $_SESSION['gender']=$rows['GenderId'];//take gender value from database
                 $_SESSION['profilePic']="../profilePic/".$rows['ProfilePic'];
-                header("location:../index.php");//send to the main page
+                header("location:../");//send to the main page
             }
             else
             $_SESSION['msg']='<div class="msg">Wrong Password</div>';//this code run when password is wrong

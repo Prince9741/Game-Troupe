@@ -72,7 +72,11 @@ if(!$log)
                 <div class=""><a href="#"><img src="images/logo.png"></a></div>
                 <div id="troupe"><a href="#">Troupe</a></div>
             </span>
-            <div id="title"><a href="#">Welcome <?php echo $_SESSION['userName'];?></a></div>
+            <div id="title" class="flex">
+                <div id="game"><a href="#">Welcome</a></div>
+                <div class=""><a href="#"><img style="border:2px solid white;border-radius:50%;" src="<?php echo substr($_SESSION['profilePic'],3);?>"></a></div>
+                <div id="troupe"><a href="#"><?php echo $_SESSION['userName'];?></a></div>
+            </div>
         </nav>
     </header>
     <div class="container flex">

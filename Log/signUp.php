@@ -10,17 +10,7 @@
     <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <header>
-        <nav class="flex" id="navbar">
-            <span class="flex">
-                <!--go to highScore page -->    
-                <div id="game"><a href="#">Game</a></div>
-                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-                <div id="troupe"><a href="#">Troupe</a></div>
-            </span>
-            <div id="title"><a href="#">Sign Up</a></div>
-        </nav>
-    </header>
+<?php $page="Sign Up"; require "../header.php";?>
     <div class="form flex">
         <form action="signUpControl.php" onSubmit = "return validateUserName(this)" method="post" class="flex" id="inputForm"> <!-- input user information -->
                 <label for="userName">User Name:</label>

@@ -2,7 +2,8 @@
 session_start();
 $log=isset($_SESSION['loggedin']);
 if(!$log)
-    header("location:../index.php");
+    header("location:../");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,17 +17,7 @@ if(!$log)
     <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-    <header>
-        <nav class="flex" id="navbar">
-            <span class="flex">
-                <!--go to highScore page -->    
-                <div id="game"><a href="#">Game</a></div>
-                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-                <div id="troupe"><a href="#">Troupe</a></div>
-            </span>
-            <div id="title"><a href="#">Profile</a></div>
-        </nav>
-    </header>
+<?php $page="Delete Account"; require "../header.php";?>
     <div class="form flex">
         <form action="profileUpdateControl.php?control=deleteAccount" method="post" class="flex" id="inputForm"> <!-- input user information -->
                 <label for="pwd"><?php echo $_SESSION['userName'];?>:</label>
@@ -42,7 +33,7 @@ if(!$log)
         ?>
     </div>
     <footer class="flex" id="footer">
-    <div><a href="../index.php" class="button">Home</a></div><!-- go to login up page -->
+    <div><a href="../" class="button">Home</a></div><!-- go to login up page -->
     <div><a href="profileUpdate.php" class="button">Back</a></div><!-- go to login up page -->
     </footer>
 </body>

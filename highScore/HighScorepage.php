@@ -22,7 +22,7 @@ if ($result && $result->num_rows > 0)
     <script src="../allFileJs.js"></script>
     <style>
     .container {
-        top: 16vh;
+        top: 13.5vh;
         position: fixed;
         width: 100%;
         flex-direction: column;
@@ -32,7 +32,7 @@ if ($result && $result->num_rows > 0)
         display: grid;
         text-align: center;
         grid-column-gap: 20px;
-        grid-row-gap: 40px;
+        grid-row-gap: 25px;
         grid-template-columns: repeat(3, auto);
     }
 
@@ -68,11 +68,15 @@ if ($result && $result->num_rows > 0)
         text-align: center;
         border-radius: 40%;
         border-bottom: 2.5px solid var(--tColor);
-        padding: 3px 10px;
+        padding: 2.5px 10px;
         font-size: 1.5em;
     }
-
-    
+    #dataContent img{
+        border-radius: 100%;
+        height: 27px;
+        width: 27px;
+        transform: scale(1.2);
+    }
     .others td{
         color: #e8dc39;
     }
@@ -122,26 +126,12 @@ if ($result && $result->num_rows > 0)
             font-size: 1.2em;
         }
     }
-    #dataContent img{
-        border-radius:100%;
-        height: 25px;
-        width:25px;
-    }
+   
      </style>
 </head>
 
 <body style=<?php echo $back;?>>
-    <header>
-        <nav class="flex" id="navbar">
-            <span class="flex">
-                <!--go to highScore page -->    
-                <div id="game"><a href="#">Game</a></div>
-                <div class=""><a href="#"><img src="../images/logo.png"></a></div>
-                <div id="troupe"><a href="#">Troupe</a></div>
-            </span>
-            <div id="title"><a href="#">High Scores</a></div>
-        </nav>
-    </header>
+<?php $page="High Score"; require "../header.php";?>
     <div class="container flex">
         <div id="control">
             <div id="game1" class="game" onclick="currentGame(0,1,'<?php echo $gameName[0];?>')" ondblclick="playGame(1)"><img src="../images/Game1.png" alt="game"></div>

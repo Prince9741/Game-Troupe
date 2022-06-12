@@ -52,7 +52,15 @@ form{
 .msgSuccess{
     box-shadow:inset 0px 0px 15px 5px green;
 }
-
+#picContainer {
+  width:100%;
+}
+#picContainer img{
+  border:2px solid white;
+  border-radius:50%;
+  height:150px;
+  width:150px;
+}
 .wrapper{
     display: inline-flex;
     height: auto;
