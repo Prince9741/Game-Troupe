@@ -167,7 +167,7 @@ if ($result && $result->num_rows > 0)
     var img=document.querySelector("#control").children;
     loadDoc("highScore.php?gameId=2", "dataContent");
     function currentGame(nextLoc,gameId,gameName){//this function change the next data or selection
-        dataContent.innerHTML="<tr><td>Loading...</td><td>Loading...</td><td>Loading...</td></tr>";
+        dataContent.innerHTML="<tr><td>Loading...</td><td>Loading...</td><td>Loading...</td><td>Loading...</td></tr>";
         url = "highScore.php?gameId=" + gameId;
         loadDoc(url, "dataContent");
         console.log("Data Update Game no."+gameId);

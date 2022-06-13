@@ -14,10 +14,15 @@
     <div class="form flex">
         <form action="signUpControl.php" onSubmit = "return validateUserName(this)" method="post" class="flex" id="inputForm"> <!-- input user information -->
                 <label for="userName">User Name:</label>
-                <input id="userName" name="userName" placeholder="Enter user name" autocomplete="off" autofocus required>
-                
+                <input id="userName" <?php
+                session_start();
+        if(isset($_SESSION['userNameSign'])){
+            echo $_SESSION['userNameSign'];
+            unset($_SESSION['userNameSign']);
+        }
+        ?>  name="userName" maxlength="20" placeholder="Enter user name" autocomplete="off" autofocus required>
                 <div class="wrapper">
-                <input type="radio" name="gen" value="0" id="male" checked>
+                <input type="radio" name="gen" value="0" id="male">
                 <input type="radio" name="gen" value="1" id="female">
                 <input type="radio" name="gen" value="2" id="others">
                     <label for="male" class="option male flex">
@@ -42,7 +47,7 @@
             
         </form>
         <?php
-        session_start();
+        
         if(isset($_SESSION['msg'])){
             echo $_SESSION['msg'];
             unset($_SESSION['msg']);
