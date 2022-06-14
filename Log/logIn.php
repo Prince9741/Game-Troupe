@@ -52,3 +52,22 @@ if($log)
 </body>
 
 </html>
+<script>
+var x = setInterval(function() {
+    try{
+        if(!timeLeftInSec.innerHTML--){
+        timeLeftInMin.innerHTML--;
+        timeLeftInSec.innerHTML=59;
+        }
+        if(timeLeftInMin.innerHTML==0 && timeLeftInSec.innerHTML==0){
+            msg.innerHTML="Id UnLocked";
+            msg.classList.add("msgSuccess");
+            clearInterval(x);
+        }
+    }
+    catch(err){
+    clearInterval(x);
+    console.log("Timer is off");
+    }
+}, 1000);
+</script>
